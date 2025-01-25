@@ -1,0 +1,249 @@
+/* Overall container */
+.product-details {
+  display: flex;
+  flex-wrap: wrap; /* Ensures responsiveness on smaller screens */
+  justify-content: space-between;
+  gap: 20px; /* Adds spacing between flex items */
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 1200px; /* Centers the content and limits the width */
+}
+
+/* Image gallery */
+.image-gallery {
+  flex: 1;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-image-container {
+  position: relative;
+  width: 100%;
+}
+
+.main-image {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.wishlist-icon {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  padding: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.wishlist-icon:hover {
+  transform: scale(1.1); /* Subtle zoom effect */
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.thumbnails {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Adds consistent spacing between thumbnails */
+}
+
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, transform 0.2s ease;
+}
+
+.thumbnail:hover {
+  border-color: #007bff;
+  transform: scale(1.1); /* Adds a hover zoom effect */
+}
+
+/* Product details container */
+.product-info {
+  flex: 1.5;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Title styling */
+.product-info h1 {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+  text-align: center;
+}
+
+/* Price calculator section */
+.price-calculator {
+  margin-top: 20px;
+}
+
+.price-calculator h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #007bff;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Form rows */
+.calculator-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.calculator-row label {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-right: 10px;
+  text-align: left;
+}
+
+.calculator-row select,
+.calculator-row input {
+  flex: 2;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.calculator-row select:focus,
+.calculator-row input:focus {
+  border-color: #007bff;
+}
+
+/* Total price row */
+.calculator-row strong {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.calculator-row span {
+  font-size: 20px;
+  font-weight: bold;
+  color: #28a745;
+}
+
+/* SKU styling */
+.calculator-row small {
+  font-size: 14px;
+  color: #888;
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Add to cart button */
+.add-to-cart-btn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: #ff6347;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #e5533f;
+  transform: translateY(-2px);
+}
+
+/* Ensure all elements are properly aligned */
+.price-calculator .calculator-row label {
+  text-align: left;
+}
+
+.price-calculator .calculator-row input,
+.price-calculator .calculator-row select {
+  text-align: left;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .calculator-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .calculator-row label {
+    margin-bottom: 5px;
+  }
+}
+
+.design-steps {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.design-steps h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.design-options {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.design-option {
+  background-color: #00bcd4;
+  color: white;
+  padding: 15px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.design-option:hover {
+  background-color: #008c9e;
+  transform: translateY(-5px);
+}
+
+.design-option:active {
+  transform: translateY(0);
+}
+
+.design-option:focus {
+  outline: 2px solid #005f73;
+  outline-offset: 3px;
+}

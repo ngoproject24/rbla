@@ -1,0 +1,155 @@
+/* Cupcoaster Page Styles */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.product-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.product-card {
+    position: relative;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    width: 220px;
+    margin: 10px;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.image-section {
+    position: relative;
+}
+
+.product-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.details-section {
+    margin-top: 10px;
+}
+
+.product-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.product-price {
+    margin-bottom: 10px;
+}
+
+.new-price {
+    color: green;
+    font-weight: bold;
+}
+
+.old-price {
+    color: red;
+    text-decoration: line-through;
+    margin-left: 5px;
+}
+
+.actions-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.wishlist-btn {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.wishlist-btn:hover {
+    background-color: #f1f1f1;
+}
+
+.wishlist-btn.active {
+    background-color: #ff4081;
+    color: white;
+}
+
+.add-to-cart-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #45a049;
+}
+
+.customize-btn {
+    display: inline-block; /* Ensure it's treated like a button */
+    position: relative; /* Position for the tooltip */
+    text-align: center;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .customize-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .tooltip {
+    visibility: hidden; /* Hide tooltip by default */
+    opacity: 0; /* Make it invisible initially */
+    position: absolute;
+    bottom: 100%; /* Position above the button */
+    left: 50%; /* Center it horizontally */
+    transform: translateX(-50%);
+    background-color: #000; /* Tooltip background color */
+    color: #fff; /* Tooltip text color */
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap; /* Prevent tooltip text wrapping */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth show/hide */
+  }
+  
+  .customize-btn:hover .tooltip {
+    visibility: visible; /* Show tooltip on hover */
+    opacity: 1; /* Make it fully visible */
+  }
+  

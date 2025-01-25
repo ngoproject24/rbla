@@ -1,0 +1,109 @@
+/* AddProduct.css */
+
+/* General Container */
+.add-product {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title */
+.add-product-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Form Fields */
+.addproduct-itemfield {
+  margin-bottom: 15px;
+}
+
+.addproduct-itemfield p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Inputs */
+.addproduct-itemfield input,
+.addproduct-itemfield select,
+.addproduct-itemfield textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.addproduct-itemfield input:focus,
+.addproduct-itemfield select:focus,
+.addproduct-itemfield textarea:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+.addproduct-price {
+  display: flex;
+  gap: 15px;
+}
+
+.addproduct-price .addproduct-itemfield {
+  flex: 1;
+}
+
+/* File Upload */
+.file-input-label {
+  display: block;
+  width: 100%;
+  height: 150px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  background-color: #fafafa;
+  text-align: center;
+  line-height: 150px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.file-input-label:hover {
+  background-color: #f0f0f0;
+}
+
+.addproduct-thumbnail-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+/* Button */
+.addproduct-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.addproduct-btn:hover {
+  background-color: #45a049;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .addproduct-price {
+    flex-direction: column;
+  }
+}

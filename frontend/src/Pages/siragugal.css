@@ -1,0 +1,122 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+  
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fdf1d5; /* Soft yellow background */
+    color: #333;
+}
+
+/* siragugal Page Styles */
+.siragugal-page {
+    width: 100%; /* Full width */
+    min-height: 100vh; /* Full height for the page */
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Header Styles */
+.siragugal-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #0073e6; /* Vivid red for contrast */
+    color: #fff; /* White text for better readability */
+    padding: 20px;
+    min-height: 300px;
+}
+
+.siragugal-logo {
+    width: 120px; /* Adjust the size of the logo */
+    height: auto;
+    margin-bottom: 10px;
+    /*filter: brightness(0) invert(1); /* Ensures logo appears in contrast */
+}
+
+.siragugal-header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.siragugal-header p {
+    font-size: 1.2rem;
+    margin-top: 5px;
+}
+
+/* Section Styles */
+.siragugal-about,
+.siragugal-services,
+.siragugal-contact {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.siragugal-about h2,
+.siragugal-services h2,
+.siragugal-contact h2 {
+    margin-bottom: 20px;
+    color: #0073e6; /* Warm orange for headings */
+    font-size: 2rem;
+}
+
+.siragugal-about p,
+.siragugal-contact p {
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.siragugal-services ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.siragugal-services li {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.siragugal-services li::before {
+    content: "✔ ";
+    color: #0073e6; /* Warm orange checkmark */
+    font-weight: bold;
+}
+
+/* Button Styles */
+button {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #0073e6; /* Warm orange background */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #0073e6; /* Darker orange shade */
+    transform: scale(1.05);
+}
+
+/* Footer */
+.siragugal-footer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #fff;
+    background-color: #0073e6; /* Warm orange footer */
+    padding: 15px 20px;
+}
+
