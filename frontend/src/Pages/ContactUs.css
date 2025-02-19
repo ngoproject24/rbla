@@ -117,4 +117,74 @@ body {
       width: 90%;
     }
   }
+  /* Contact Banner Styles */
+.contact-banner {
+  background: url('/path-to-your-banner-image.png') center/cover no-repeat;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+/* Dark Overlay Effect */
+.overlay {
+  background: rgba(0, 0, 0, 0.5); /* Dark background for better readability */
+  padding: 20px;
+  text-align: center;
+  color: white;
+  width: 100%;
+}
+
+/* Heading Style */
+.overlay h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+/* Breadcrumbs and Logo */
+.overlay p {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.overlay a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Contact Banner Logo */
+.contactba-logo {
+  width: 40px;  /* Adjust size as needed */
+  height: auto;
+}
+
+/* Contact Icons Section */
+.contact-icons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+/* Contact Icons Styling */
+.contact-icons img {
+  width: 40px;  /* Adjust size as needed */
+  height: 40px;
+  transition: transform 0.3s ease-in-out;
+  filter: brightness(0) invert(1); /* Makes the icons white */
+}
+
+/* Hover Effect on Icons */
+.contact-icons img:hover {
+  transform: scale(1.1);
+}
+
   

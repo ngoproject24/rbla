@@ -1,0 +1,222 @@
+/* ========== General Styles ========== */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.md\:flex-row {
+  flex-direction: row;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.bg-background {
+  background-color: #f0f4f8; /* Light blue-gray background */
+}
+
+/* ========== Sidebar Styles ========== */
+.w-full {
+  width: 100%;
+}
+
+.md\:w-64 {
+  width: 16rem;
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.border-r {
+  border-right: 2px solid #e2e8f0;
+}
+
+.space-y-2 > * + * {
+  margin-top: 0.5rem;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+/* Sidebar Text Colors */
+.text-pink-500 {
+  color: #e60073; /* Deep pink */
+}
+
+.text-blue-500 {
+  color: #007bff; /* Vibrant blue */
+}
+
+.text-red-500 {
+  color: #ff3b3b; /* Bright red */
+}
+
+.hover\:text-red-600:hover {
+  color: #d72626;
+}
+
+/* Sidebar Buttons */
+.bg-transparent {
+  background-color: transparent;
+}
+
+.border-none {
+  border: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* ========== Main Content Styles ========== */
+.flex-1 {
+  flex: 1;
+}
+
+.max-w-2xl {
+  max-width: 42rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+.max-w-md {
+  max-width: 28rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
+.border {
+  border: 1px solid #e2e8f0;
+}
+
+.rounded {
+  border-radius: 0.5rem;
+}
+
+.bg-gray-100 {
+  background-color: #ffffff;
+}
+
+/* ========== Form Styles ========== */
+.form-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.form-group {
+  flex: 1 1 calc(50% - 1.5rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+/* Improved Input Styles */
+.form-group input {
+  padding: 0.75rem;
+  border: 2px solid #cbd5e1;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background-color: #ffffff;
+  color: #1e293b; /* Dark text for better visibility */
+  transition: border-color 0.3s ease;
+}
+
+/* Placeholder Text Improvement */
+.form-group input::placeholder {
+  color: #64748b; /* Muted gray for better visibility */
+  font-size: 0.95rem;
+}
+
+/* Input Focus State */
+.form-group input:focus {
+  border-color: #007bff; /* Vibrant blue */
+  outline: none;
+}
+
+/* ========== Button Styles ========== */
+.button-primary {
+  background-color: #007bff;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-primary:hover {
+  background-color: #0056b3;
+}
+
+.button-danger {
+  background-color: #ff3b3b;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-danger:hover {
+  background-color: #d72626;
+}
+
+/* ========== Icon Styles ========== */
+.w-4 {
+  width: 1rem;
+}
+
+.h-4 {
+  height: 1rem;
+}

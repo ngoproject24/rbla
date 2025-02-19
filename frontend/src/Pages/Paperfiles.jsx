@@ -1,80 +1,137 @@
-import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom'; // For navigation
-import P1_img from '../Components/Assets/P1.png';
-import P2_img from '../Components/Assets/P2.png';
-import P3_img from '../Components/Assets/P3.png';
-import P4_img from '../Components/Assets/P4.png';
-import P5_img from '../Components/Assets/P5.png';
+import React, { useContext,useEffect,useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom'; // For navigation
 import './Paperfiles.css';
 import { WishlistContext } from '../WishlistContext'; // Wishlist context
 import { CartContext } from '../CartContext'; // Cart context
+import Header from '../Components/Header/Header'; // Corrected import path
 
+/*const bedsheets = [
+  { id: 1, name: 'Floral Bedsheet', image: B1_img, new_price: 50.0, old_price: 65.0 },
+  { id: 2, name: 'Geometric Bedsheet', image: B2_img, new_price: 55.0, old_price: 70.0 },
+  { id: 3, name: 'Abstract Bedsheet', image: B3_img, new_price: 60.0, old_price: 80.0 },
+  { id: 4, name: 'Classic White Bedsheet', image: B4_img, new_price: 45.0, old_price: 60.0 },
+  { id: 5, name: 'Luxury Bedsheet', image: B5_img, new_price: 90.0, old_price: 110.0 },
+];*/
 
-
-const paperfiles = [
-  { id: 1, name: 'Worldone Eco Friendly Documents Organizer File', image: P1_img, new_price: 100, oldPrice: 200 },
-  { id: 2, name: 'CRAFTWAFT Shila Hard Board Brown Lace File', image: P2_img, new_price: 150, oldPrice: 300 },
-  { id: 3, name: 'Manifold Kraft File Folder with Spine', image: P3_img, new_price: 120, oldPrice: 250 },
-  { id: 4, name: 'Monaf A4 Twin-Pocket Conference File', image: P4_img, new_price: 180, oldPrice: 350 },
-  { id: 5, name: 'Wallet - Half Flap  File', image: P5_img, new_price: 220, oldPrice: 450 },
-];
 
 const Paperfiles = () => {
   // Access context values
-  const { wishlist, addToWishlist, removeFromWishlist } = useContext(WishlistContext); // Wishlist context
-  const { addToCart } = useContext(CartContext); // Cart context
+  const { wishlist, addToWishlist, removeFromWishlist } = useContext(WishlistContext);
+  const { cart, addToCart } = useContext(CartContext);
+  const navigate = useNavigate();
 
-  const navigate = useNavigate(); // React Router navigation
+  const [paperfiles, setPaperfiles] = useState([]);
 
-  const isInWishlist = (file) => wishlist.some((item) => item.id === file.id); // Check if in wishlist
+  // Fetch anklet data from the API
+  useEffect(() => {
+    fetch("http://localhost:4000/paperfiles") 
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          setPaperfiles(data.data); 
+        } else {
+          console.error("No Paperfiles found:", data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching Paperfiles:", error);
+      });
+  }, []);
 
+  const isInWishlist = (product) => wishlist.some((item) => item.id === product.id); // Check if in wishlist
+  const isInCart = (product) => cart.some((item) => item.id === product.id);
   // Handle Add to Cart
-  const handleAddToCart = (file) => {
-    addToCart(file); // Add item to cart
+ /* const handleAddToCart = (bedsheet) => {
+    addToCart(bedsheet); // Add item to cart
     navigate('/cart'); // Navigate to Cart page
-  };
+  };*/
 
   return (
-    <div>
+    <div className="Paperfiles-container">
      
 
-      <h1>Welcome to the Paper Files category page!</h1>
+      <h1>Welcome to the Paperfiles Collection!</h1>
 
-      <div className="container">
-        {paperfiles.map((file) => (
-          <div key={file.id} className="paperfile-card">
-            <div className="paperfile-image-container">
-              {/* Wishlist Heart Button */}
-              <div
-                className={`heart-icon ${isInWishlist(file) ? 'active' : ''}`}
-                onClick={() => {
-                  if (isInWishlist(file)) {
-                    removeFromWishlist(file); // Remove from wishlist
-                  } else {
-                    addToWishlist(file); // Add to wishlist
-                  }
-                }}
-              ></div>
-              <img className="paperfile-image" src={file.image} alt={file.name} />
+     
+
+      {/* Product Grid */}
+      <div className="product-grid">
+        {paperfiles.map((product) => (
+          <div className="product-card" key={product.id}>
+            {/* Wishlist Icon */}
+            <div
+              className={`wishlist-icon ${isInWishlist(product) ? "active" : ""}`}
+              onClick={() => {
+                if (isInWishlist(product)) {
+                  removeFromWishlist(product);
+                } else {
+                  addToWishlist(product);
+                }
+              }}
+            >
+              ♥
             </div>
-            <div className="paperfile-name">{file.name}</div>
-            <div className="paperfile-price">
-              <span className="new-price">₹{file.new_price}</span>{' '}
-              <span className="old-price">₹{file.oldPrice}</span>
-            </div>
+
+            {/* Product Image */}
+            <Link to={`/product/${product.productid}`}>
+              <img src={product.images[0]} alt={product.name} className="product-image" />
+            </Link>
+
+            {/* Product Details */}
+            <h3>{product.name}</h3>
+            <p>Price: ₹{product.new_price}</p>
+            <p className="original-price">Original Price: ₹{product.old_price}</p>
+
             {/* Add to Cart Button */}
             <button
               className="add-to-cart-btn"
-              onClick={() => handleAddToCart(file)}
+              onClick={() => {
+                if (!isInCart(product)) {
+                  addToCart(product);
+                }
+              }}
             >
-              Add to Cart
+              {isInCart(product) ? "In Cart" : "Add to Cart"}
             </button>
           </div>
         ))}
       </div>
-      {/* Customize Button */}
-      <button className="customize-btn">Customize</button>
-      
+
+      {/* New Design Steps Section */}
+      <div className="design-steps">
+        <h3>Next Step for Design</h3>
+        <div className="design-options">
+          <div
+            className="design-option"
+            onClick={() => navigate("/browse-design")}
+            role="button"
+            aria-label="Browse Design"
+          >
+            Browse Design →
+          </div>
+          <div
+            className="design-option"
+            onClick={() => navigate("/CustomDesignPage")}
+            role="button"
+            aria-label="Custom Design"
+          >
+            Custom Design →
+          </div>
+          <div
+            className="design-option"
+            onClick={() => navigate("/upload-design")}
+            role="button"
+            aria-label="Upload Design and Checkout"
+          >
+            Upload Design and Checkout →
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

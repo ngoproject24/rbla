@@ -1,14 +1,34 @@
 import React from "react";
 import "./ContactUs.css";
+import at from '../Components/Assets/at.png';
+import phone from '../Components/Assets/phone.png';
+import cell from '../Components/Assets/cell.png';
+import mail from '../Components/Assets/mail.png';
+import contactba from '../Components/Assets/contactba.png';
+
 
 
 const ContactUs = () => {
   return (
     <div className="contact-us">
-      {/* Header Section */}
-      <div className="contact-header">
-        <h1>Contact Us</h1>
-        <p>We'd love to hear from you! Reach out with any questions or feedback.</p>
+      {/* Banner Section */}
+      <div className="contact-banner">
+        
+        <div className="overlay">
+        <img src={contactba} alt="contactba" className="contactba-logo" />  
+          <h1>CONTACT US</h1>
+          <p>
+            
+            <a href="/">Home</a> » <span>CONTACT US</span>
+          </p>
+          {/* Icons Section */}
+          <div className="contact-icons">
+            <img src={at} alt="at icon" />
+            <img src={phone} alt="phone icon" />
+            <img src={cell} alt="cell icon" />
+            <img src={mail} alt="mail icon" />
+          </div>
+        </div>
       </div>
 
       {/* Contact Form Section */}

@@ -1,16 +1,21 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import './Wishlist.css'; // Add custom styles if needed
-import { WishlistContext } from '../WishlistContext';
-
+import './Wishlist.css'; 
+import { WishlistContext } from "../Context/WishlistContext";
+import bheart from "../Components/Assets/bheart.png";
 
 const Wishlist = () => {
-  const { wishlist, removeFromWishlist } = useContext(WishlistContext);
+  const { wishlist, removeFromWishlist, loading, error } = useContext(WishlistContext);
 
   return (
     <div className="wishlist-container">
+      {loading && <div className="loading">Loading...</div>} {/* Add a loading indicator */}
+      
+      {error && <div className="error">{error}</div>} {/* Display error message if any */}
+
       {wishlist.length === 0 ? (
         <div className="empty-wishlist">
+          <img src={bheart} alt="bheart" />
           <h2>Your Wishlist is Empty</h2>
           <p>Looks like you haven't added anything to your Wishlist yet.</p>
           <Link to="/">
@@ -23,9 +28,9 @@ const Wishlist = () => {
           <div className="items-container">
             {wishlist.map((item, index) => (
               <div key={index} className="wishlist-item">
-                <img src={item.image} alt={item.name} className="wishlist-image" />
+                <img src={item.images[0]} alt={item.productName} className="wishlist-image" />
                 <div className="wishlist-details">
-                  <h3>{item.name}</h3>
+                  <h3>{item.productName}</h3>
                   <p>Price: ${item.new_price}</p>
                   <button
                     className="remove-icon"
@@ -43,7 +48,6 @@ const Wishlist = () => {
           </div>
         </div>
       )}
-      
     </div>
   );
 };

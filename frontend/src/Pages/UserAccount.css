@@ -1,0 +1,119 @@
+/* General page styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Main container */
+  .account-container {
+    display: flex;
+    width: 75%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Sidebar styles */
+  .sidebar {
+    width: 30%;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-name {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .email-box {
+    text-align: center;
+    background-color: #e5e7eb;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  .nav-links {
+    margin-top: 20px;
+  }
+  
+  .nav-links a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #4b5563;
+    padding: 10px 0;
+    transition: 0.3s;
+    font-size: 14px;
+  }
+  
+  .nav-links a:hover {
+    color: black;
+  }
+  
+  .nav-links a span {
+    margin-right: 10px;
+  }
+  
+  .active {
+    color: #ec4899;
+    font-weight: bold;
+  }
+  
+  /* Account details section */
+  .account-details {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
+  }
+  
+  .account-details h2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .details-box {
+    background-color: #f9fafb;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .details-box p {
+    color: #374151;
+    margin: 5px 0;
+  }
+  
+  /* Edit Button */
+  .edit-btn {
+    display: block;
+    background-color: #ec4899;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 14px;
+    transition: 0.3s;
+  }
+  
+  .edit-btn:hover {
+    background-color: #db2777;
+  }
+  

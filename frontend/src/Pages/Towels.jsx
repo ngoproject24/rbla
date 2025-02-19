@@ -1,52 +1,137 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext,useEffect,useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom'; // For navigation
 import './Towels.css';
+import { WishlistContext } from '../WishlistContext'; // Wishlist context
+import { CartContext } from '../CartContext'; // Cart context
+import Header from '../Components/Header/Header'; // Corrected import path
 
+/*const bedsheets = [
+  { id: 1, name: 'Floral Bedsheet', image: B1_img, new_price: 50.0, old_price: 65.0 },
+  { id: 2, name: 'Geometric Bedsheet', image: B2_img, new_price: 55.0, old_price: 70.0 },
+  { id: 3, name: 'Abstract Bedsheet', image: B3_img, new_price: 60.0, old_price: 80.0 },
+  { id: 4, name: 'Classic White Bedsheet', image: B4_img, new_price: 45.0, old_price: 60.0 },
+  { id: 5, name: 'Luxury Bedsheet', image: B5_img, new_price: 90.0, old_price: 110.0 },
+];*/
 
-// Import towel images
-import T1_img from '../Components/Assets/T1.png';
-import T2_img from '../Components/Assets/T2.png';
-import T3_img from '../Components/Assets/T3.png';
-import T4_img from '../Components/Assets/T4.png';
-import T5_img from '../Components/Assets/T5.png';
-
-
-// Define the towel data
-const towels = [
-  { id: 1, name: 'Rose printed towel', image: T1_img, new_price: 130.0, old_price: 80.0 },
-  { id: 2, name: 'Blue leaf towel', image: T2_img, new_price: 130.0, old_price: 80.0 },
-  { id: 3, name: 'Brown cotton towel', image: T3_img, new_price: 130.0, old_price: 80.0 },
-  { id: 4, name: 'Multi circle cotton towel', image: T4_img, new_price: 130.0, old_price: 80.0 },
-  { id: 5, name: 'Baby penguin towel', image: T5_img, new_price: 130.0, old_price: 80.0 },
-];
 
 const Towels = () => {
+  // Access context values
+  const { wishlist, addToWishlist, removeFromWishlist } = useContext(WishlistContext);
+  const { cart, addToCart } = useContext(CartContext);
   const navigate = useNavigate();
 
+  const [towels, setTowels] = useState([]);
+
+  // Fetch anklet data from the API
+  useEffect(() => {
+    fetch("http://localhost:4000/towels") 
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          setTowels(data.data); 
+        } else {
+          console.error("No Towels found:", data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching Towels:", error);
+      });
+  }, []);
+
+  const isInWishlist = (product) => wishlist.some((item) => item.id === product.id); // Check if in wishlist
+  const isInCart = (product) => cart.some((item) => item.id === product.id);
+  // Handle Add to Cart
+ /* const handleAddToCart = (bedsheet) => {
+    addToCart(bedsheet); // Add item to cart
+    navigate('/cart'); // Navigate to Cart page
+  };*/
+
   return (
-    <div>
-      
-      <h1>Welcome to the Towels category page!</h1>
-      <div className="container">
-        {towels.map((towel) => (
-          <div key={towel.id} className="towel-card">
-            <div className="towel-image-container">
-              <img
-                className="towel-image"
-                src={towel.image}
-                alt={towel.name}
-                onClick={() => navigate(`/towels/${towel.id}`)} // Navigate to Product Details
-              />
+    <div className="Towels-container">
+    
+
+      <h1>Welcome to the Towels Collection!</h1>
+
+     
+
+      {/* Product Grid */}
+      <div className="product-grid">
+        {towels.map((product) => (
+          <div className="product-card" key={product.id}>
+            {/* Wishlist Icon */}
+            <div
+              className={`wishlist-icon ${isInWishlist(product) ? "active" : ""}`}
+              onClick={() => {
+                if (isInWishlist(product)) {
+                  removeFromWishlist(product);
+                } else {
+                  addToWishlist(product);
+                }
+              }}
+            >
+              ♥
             </div>
-            <div className="towel-name">{towel.name}</div>
-            <div className="towel-price">
-              <span className="new-price">${towel.new_price}</span>{' '}
-              <span className="old-price">${towel.old_price}</span>
-            </div>
+
+            {/* Product Image */}
+            <Link to={`/product/${product.productid}`}>
+              <img src={product.images[0]} alt={product.name} className="product-image" />
+            </Link>
+
+            {/* Product Details */}
+            <h3>{product.name}</h3>
+            <p>Price: ₹{product.new_price}</p>
+            <p className="original-price">Original Price: ₹{product.old_price}</p>
+
+            {/* Add to Cart Button */}
+            <button
+              className="add-to-cart-btn"
+              onClick={() => {
+                if (!isInCart(product)) {
+                  addToCart(product);
+                }
+              }}
+            >
+              {isInCart(product) ? "In Cart" : "Add to Cart"}
+            </button>
           </div>
         ))}
       </div>
-      
+
+      {/* New Design Steps Section */}
+      <div className="design-steps">
+        <h3>Next Step for Design</h3>
+        <div className="design-options">
+          <div
+            className="design-option"
+            onClick={() => navigate("/browse-design")}
+            role="button"
+            aria-label="Browse Design"
+          >
+            Browse Design →
+          </div>
+          <div
+            className="design-option"
+            onClick={() => navigate("/CustomDesignPage")}
+            role="button"
+            aria-label="Custom Design"
+          >
+            Custom Design →
+          </div>
+          <div
+            className="design-option"
+            onClick={() => navigate("/upload-design")}
+            role="button"
+            aria-label="Upload Design and Checkout"
+          >
+            Upload Design and Checkout →
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

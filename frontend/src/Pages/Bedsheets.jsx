@@ -1,76 +1,126 @@
-import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom'; // For navigation
-import B1_img from '../Components/Assets/B1.png';
-import B2_img from '../Components/Assets/B2.png';
-import B3_img from '../Components/Assets/B3.png';
-import B4_img from '../Components/Assets/B4.png';
-import B5_img from '../Components/Assets/B5.png';
+import React, { useContext,useEffect,useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom'; // For navigation
 import './Bedsheets.css';
-import { WishlistContext } from '../WishlistContext'; // Wishlist context
-import { CartContext } from '../CartContext'; // Cart context
+//import { WishlistContext } from '../WishlistContext'; // Wishlist context
+//import { CartContext } from '../CartContext'; // Cart context
+import { WishlistContext } from "../Context/WishlistContext";
+import { CartContext } from "../Context/CartContext";
 
-
-
-const bedsheets = [
-  { id: 1, name: 'Floral Bedsheet', image: B1_img, new_price: 50.0, old_price: 65.0 },
-  { id: 2, name: 'Geometric Bedsheet', image: B2_img, new_price: 55.0, old_price: 70.0 },
-  { id: 3, name: 'Abstract Bedsheet', image: B3_img, new_price: 60.0, old_price: 80.0 },
-  { id: 4, name: 'Classic White Bedsheet', image: B4_img, new_price: 45.0, old_price: 60.0 },
-  { id: 5, name: 'Luxury Bedsheet', image: B5_img, new_price: 90.0, old_price: 110.0 },
-];
 
 const Bedsheets = () => {
   // Access context values
-  const { wishlist, addToWishlist, removeFromWishlist } = useContext(WishlistContext); // Wishlist context
-  const { addToCart } = useContext(CartContext); // Cart context
+  const { wishlist, addToWishlist, removeFromWishlist } = useContext(WishlistContext);
+  const { cart, addToCart } = useContext(CartContext);
+  const navigate = useNavigate();
 
-  const navigate = useNavigate(); // React Router navigation
+  const [bedsheets, setBedsheets] = useState([]);
 
-  const isInWishlist = (bedsheet) => wishlist.some((item) => item.id === bedsheet.id); // Check if in wishlist
+  // Fetch anklet data from the API
+  useEffect(() => {
+    fetch("http://localhost:4000/bedsheets") 
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          setBedsheets(data.data); 
+        } else {
+          console.error("No bedsheets found:", data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching bedsheets:", error);
+      });
+  }, []);
 
-  // Handle Add to Cart
-  const handleAddToCart = (bedsheet) => {
-    addToCart(bedsheet); // Add item to cart
-    navigate('/cart'); // Navigate to Cart page
-  };
-
+  const isInWishlist = (product) => wishlist.some((item) => item.productid === product.productid);
+  const isInCart = (product) => cart.some((item) => item.productid === product.productid);
   return (
-    <div>
-      
-      <h1>Welcome to the Bedsheets category page!</h1>
-      <div className="container">
-        {bedsheets.map((bedsheet) => (
-          <div key={bedsheet.id} className="bedsheet-card">
-            <div className="bedsheet-image-container">
-              {/* Wishlist Heart Button */}
-              <div
-                className={`heart-icon ${isInWishlist(bedsheet) ? 'active' : ''}`}
-                onClick={() => {
-                  if (isInWishlist(bedsheet)) {
-                    removeFromWishlist(bedsheet); // Remove from wishlist
-                  } else {
-                    addToWishlist(bedsheet); // Add to wishlist
-                  }
-                }}
-              ></div>
-              <img className="bedsheet-image" src={bedsheet.image} alt={bedsheet.name} />
+    <div className="bedsheets-container">
+
+
+      <h1>Welcome to the bedsheets Collection!</h1>
+
+     
+
+      {/* Product Grid */}
+      <div className="product-grid">
+      {bedsheets.map((product) => (
+  <div className="product-card" key={product.productid}> {/* Ensure each key is unique */}
+
+            {/* Wishlist Icon */}
+            <div
+              className={`wishlist-icon ${isInWishlist(product) ? "active" : ""}`}
+              onClick={() => {
+                console.log("Prd: ",product)
+                if (isInWishlist(product)) {
+                  removeFromWishlist(product);
+                } else {
+                  addToWishlist(product);
+                }
+              }}
+            >
+              ♥
             </div>
-            <div className="bedsheet-name">{bedsheet.name}</div>
-            <div className="bedsheet-price">
-              <span className="new-price">${bedsheet.new_price}</span>{' '}
-              <span className="old-price">${bedsheet.old_price}</span>
-            </div>
+
+            {/* Product Image */}
+            <Link to={`/product/${product.productid}`}>
+              <img src={product.images[0]} alt={product.name} className="product-image" />
+            </Link>
+
+            {/* Product Details */}
+            <h3>{product.name}</h3>
+            <p>Price: ₹{product.new_price}</p>
+            <p className="original-price">Original Price: ₹{product.old_price}</p>
+
             {/* Add to Cart Button */}
             <button
               className="add-to-cart-btn"
-              onClick={() => handleAddToCart(bedsheet)}
+              onClick={() => {
+                if (!isInCart(product)) {
+                  addToCart(product);
+                }
+              }}
             >
-              Add to Cart
+              {isInCart(product) ? "In Cart" : "Add to Cart"}
             </button>
           </div>
         ))}
       </div>
-      
+
+      {/* New Design Steps Section */}
+      <div className="design-steps">
+        <h3>Next Step for Design</h3>
+        <div className="design-options">
+          <div
+            className="design-option"
+            onClick={() => navigate("/browse-design")}
+            role="button"
+            aria-label="Browse Design"
+          >
+            Browse Design →
+          </div>
+          <div
+            className="design-option"
+            onClick={() => navigate("/CustomDesignPage")}
+            role="button"
+            aria-label="Custom Design"
+          >
+            Custom Design →
+          </div>
+          <div
+            className="design-option"
+            onClick={() => navigate("/upload-design")}
+            role="button"
+            aria-label="Upload Design and Checkout"
+          >
+            Upload Design and Checkout →
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

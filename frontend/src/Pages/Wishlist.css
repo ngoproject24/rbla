@@ -1,173 +1,114 @@
-/* Wishlist container styles */
+/* Container for the entire Wishlist page */
 .wishlist-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  font-family: 'Arial', sans-serif;
-  background-color: #f9f9f9;
   min-height: 100vh;
-  box-sizing: border-box;
+  background-color: #f8f8f8;
 }
 
-/* Empty wishlist styles */
+/* Empty Wishlist Styling */
 .empty-wishlist {
   text-align: center;
-  margin-top: 50px;
+  padding: 50px;
+}
+
+.empty-wishlist img {
+  width: 150px; /* Adjust size of the image */
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 20px;
 }
 
 .empty-wishlist h2 {
-  font-size: 24px;
+  font-size: 1.75rem;
+  font-weight: bold;
   color: #333;
+  margin-bottom: 15px;
 }
 
 .empty-wishlist p {
-  font-size: 16px;
-  color: #666;
-  margin: 10px 0 20px;
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 20px;
 }
 
 .shop-now-btn {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
   padding: 10px 20px;
-  border-radius: 5px;
+  background-color: #3498db;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .shop-now-btn:hover {
-  background-color: #0056b3;
+  background-color: #2980b9;
 }
 
 /* Wishlist items section */
 .wishlist-items {
-  text-align: center;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .wishlist-items h2 {
-  font-size: 28px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
-/* Items container */
 .items-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   gap: 20px;
 }
 
-/* Individual wishlist item */
 .wishlist-item {
-  background: #fff;
-  border: 1px solid #ddd;
+  background-color: white;
   border-radius: 8px;
-  width: 250px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 250px;
   padding: 15px;
   text-align: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
 }
 
-.wishlist-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-/* Item image styling */
 .wishlist-item img {
   width: 100%;
   height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
+  object-fit: contain;
+  margin-bottom: 15px;
 }
 
-/* Item text styling */
-.wishlist-item h3 {
-  font-size: 18px;
+.wishlist-details h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
   color: #333;
-  margin: 10px 0;
+  margin-bottom: 10px;
 }
 
-.wishlist-item p {
-  font-size: 16px;
+.wishlist-details p {
+  font-size: 1rem;
   color: #777;
+  margin-bottom: 15px;
 }
 
 .remove-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: white;
-    color: red;
-    font-size: 18px;
-    padding: 5px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  }
-  
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #e53e3e;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
 .remove-icon:hover {
-  background: red;
-    color: white;
-}
-
-
-/* Responsive styles */
-@media (max-width: 768px) {
-  .wishlist-item {
-    width: 90%;
-    margin: 10px auto;
-  }
-
-  .items-container {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .wishlist-items h2 {
-    font-size: 24px;
-  }
-}
-
-@media (max-width: 480px) {
-  .wishlist-container {
-    padding: 10px;
-  }
-
-  .empty-wishlist h2 {
-    font-size: 20px;
-  }
-
-  .empty-wishlist p {
-    font-size: 14px;
-  }
-
-  .shop-now-btn {
-    padding: 8px 16px;
-    font-size: 14px;
-  }
-
-  .wishlist-item h3 {
-    font-size: 16px;
-  }
-
-  .wishlist-item p {
-    font-size: 14px;
-  }
-
-  .remove-icon {
-    font-size: 20px;
-  }
-}
-.remove-btn {
-  font-size: 0; /* Hides the text */
-}
-
-.remove-btn i {
-  font-size: 24px; /* Keeps the heart icon visible */
+  color: #c0392b;
 }

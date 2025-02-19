@@ -1,82 +1,136 @@
-import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom'; // For navigation
-import O1_img from '../Components/Assets/O1.png';  // Example images for Bamboo
-import O2_img from '../Components/Assets/O2.png';
-import O3_img from '../Components/Assets/O3.png';
-import O4_img from '../Components/Assets/O4.png';
-import O5_img from '../Components/Assets/O5.png';
-import './Bamboo.css';  // Import Bamboo styles
-import { WishlistContext } from '../WishlistContext';  // Wishlist context
-import { CartContext } from '../CartContext';  // Cart context
+import React, { useContext,useEffect,useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom'; // For navigation
+import './Bamboo.css';
+import { WishlistContext } from '../WishlistContext'; // Wishlist context
+import { CartContext } from '../CartContext'; // Cart context
+import Header from '../Components/Header/Header'; // Corrected import path
 
+/*const bedsheets = [
+  { id: 1, name: 'Floral Bedsheet', image: B1_img, new_price: 50.0, old_price: 65.0 },
+  { id: 2, name: 'Geometric Bedsheet', image: B2_img, new_price: 55.0, old_price: 70.0 },
+  { id: 3, name: 'Abstract Bedsheet', image: B3_img, new_price: 60.0, old_price: 80.0 },
+  { id: 4, name: 'Classic White Bedsheet', image: B4_img, new_price: 45.0, old_price: 60.0 },
+  { id: 5, name: 'Luxury Bedsheet', image: B5_img, new_price: 90.0, old_price: 110.0 },
+];*/
 
-
-// Example array for Bamboo products
-const bambooProducts = [
-  { id: 1, name: 'Floral Bamboo', image: O1_img, new_price: 250, oldPrice: 500 },
-  { id: 2, name: 'Wicker Storage Basket', image: O2_img, new_price: 300, oldPrice: 600 },
-  { id: 3, name: 'Bamboo House', image: O3_img, new_price: 200, oldPrice: 450 },
-  { id: 4, name: 'Marble Bamboo', image: O4_img, new_price: 350, oldPrice: 700 },
-  { id: 5, name: 'Vintage Bamboo Products', image: O5_img, new_price: 400, oldPrice: 800 },
-];
 
 const Bamboo = () => {
   // Access context values
-  const { wishlist, addToWishlist, removeFromWishlist } = useContext(WishlistContext);  // Wishlist context
-  const { addToCart } = useContext(CartContext);  // Cart context
+  const { wishlist, addToWishlist, removeFromWishlist } = useContext(WishlistContext);
+  const { cart, addToCart } = useContext(CartContext);
+  const navigate = useNavigate();
 
-  const navigate = useNavigate();  // React Router navigation
+  const [bamboo, setBamboo] = useState([]);
 
-  const isInWishlist = (product) => wishlist.some((item) => item.id === product.id);  // Check if in wishlist
+  // Fetch anklet data from the API
+  useEffect(() => {
+    fetch("http://localhost:4000/bamboo") 
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          setBamboo(data.data); 
+        } else {
+          console.error("No bamboo found:", data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching bamboo:", error);
+      });
+  }, []);
 
+  const isInWishlist = (product) => wishlist.some((item) => item.id === product.id); // Check if in wishlist
+  const isInCart = (product) => cart.some((item) => item.id === product.id);
   // Handle Add to Cart
-  const handleAddToCart = (product) => {
-    addToCart(product);  // Add item to cart
-    navigate('/cart');  // Navigate to Cart page
-  };
+ /* const handleAddToCart = (bedsheet) => {
+    addToCart(bedsheet); // Add item to cart
+    navigate('/cart'); // Navigate to Cart page
+  };*/
 
   return (
-    <div>
-      
+    <div className="bamboo-container">
+  
+      <h1>Welcome to the bamboo Collection!</h1>
 
-      <h1>Welcome to the Bamboo Products category page!</h1>
+     
 
-      <div className="container">
-        {bambooProducts.map((product) => (
-          <div key={product.id} className="bamboo-card">
-            <div className="bamboo-image-container">
-              {/* Wishlist Heart Button */}
-              <div
-                className={`heart-icon ${isInWishlist(product) ? 'active' : ''}`}
-                onClick={() => {
-                  if (isInWishlist(product)) {
-                    removeFromWishlist(product);  // Remove from wishlist
-                  } else {
-                    addToWishlist(product);  // Add to wishlist
-                  }
-                }}
-              ></div>
-              <img className="bamboo-image" src={product.image} alt={product.name} />
+      {/* Product Grid */}
+      <div className="product-grid">
+        {bamboo.map((product) => (
+          <div className="product-card" key={product.id}>
+            {/* Wishlist Icon */}
+            <div
+              className={`wishlist-icon ${isInWishlist(product) ? "active" : ""}`}
+              onClick={() => {
+                if (isInWishlist(product)) {
+                  removeFromWishlist(product);
+                } else {
+                  addToWishlist(product);
+                }
+              }}
+            >
+              ♥
             </div>
-            <div className="bamboo-name">{product.name}</div>
-            <div className="bamboo-price">
-              <span className="new-price">₹{product.new_price}</span>{' '}
-              <span className="old-price">₹{product.oldPrice}</span>
-            </div>
+
+            {/* Product Image */}
+            <Link to={`/product/${product.productid}`}>
+              <img src={product.images[0]} alt={product.name} className="product-image" />
+            </Link>
+
+            {/* Product Details */}
+            <h3>{product.name}</h3>
+            <p>Price: ₹{product.new_price}</p>
+            <p className="original-price">Original Price: ₹{product.old_price}</p>
+
             {/* Add to Cart Button */}
             <button
               className="add-to-cart-btn"
-              onClick={() => handleAddToCart(product)}
+              onClick={() => {
+                if (!isInCart(product)) {
+                  addToCart(product);
+                }
+              }}
             >
-              Add to Cart
+              {isInCart(product) ? "In Cart" : "Add to Cart"}
             </button>
           </div>
         ))}
       </div>
 
-      {/* Customize Button */}
-      <button className="customize-btn">Customize</button>
-      
+      {/* New Design Steps Section */}
+      <div className="design-steps">
+        <h3>Next Step for Design</h3>
+        <div className="design-options">
+          <div
+            className="design-option"
+            onClick={() => navigate("/browse-design")}
+            role="button"
+            aria-label="Browse Design"
+          >
+            Browse Design →
+          </div>
+          <div
+            className="design-option"
+            onClick={() => navigate("/CustomDesignPage")}
+            role="button"
+            aria-label="Custom Design"
+          >
+            Custom Design →
+          </div>
+          <div
+            className="design-option"
+            onClick={() => navigate("/upload-design")}
+            role="button"
+            aria-label="Upload Design and Checkout"
+          >
+            Upload Design and Checkout →
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -34,6 +34,7 @@ const Footer = () => {
             <li><a href="#">Recalls and Product Safety Alerts</a></li>
             <li><a href="#">100% Purchase Protection</a></li>
             <li><Link to="/ContactUs">Help</Link></li>
+            <li><Link to="/PaymentPage">pay</Link></li>
           </ul>
         </div>
       </div>

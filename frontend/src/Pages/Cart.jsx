@@ -1,11 +1,34 @@
-import React, { useContext } from 'react';
-import { CartContext } from '../CartContext';
+import React, { useContext,useEffect} from 'react';
+//import { WishlistContext } from "../Context/WishlistContext";
+import { CartContext } from "../Context/CartContext";
 import './Cart.css';
 import closeIcon from '../Components/Assets/close.png';
 
-
 const Cart = () => {
-  const { cart, cartCount, removeItem } = useContext(CartContext);
+  const { cart, cartCount, removeItem,fetchCart} = useContext(CartContext);
+  useEffect(() => {
+    fetchCart();  // Call fetchCart to get cart data when the component mounts
+  }, []);  // Dependency array to ensure it re-runs when needed
+/*
+  // Function to increment item quantity using updateQuantity from context
+  const incrementQuantity = (item) => {
+    const newQuantity = item.quantity + 1;
+    updateQuantity(item.productid, newQuantity);  // Update via the context
+  };
+
+ 
+  const decrementQuantity = (item) => {
+    const newQuantity = item.quantity > 1 ? item.quantity - 1 : 0; 
+    if (newQuantity === 0) {
+      removeItem(item.productid);
+    } else {
+      updateQuantity(item.productid, newQuantity);
+    }
+  };
+ 
+  // Calculate total
+  const calculateTotal = () =>
+    cart.reduce((total, item) => total + item.new_price * item.quantity, 0); */
 
   return (
     <div className="cart-container">
@@ -27,7 +50,7 @@ const Cart = () => {
               </div>
               <button
                 className="remove-btn"
-                onClick={() => removeItem(item.id)}
+                onClick={() => removeItem(item)}
               >
                 <img src={closeIcon} alt="Remove" className="close-icon" />
               </button>

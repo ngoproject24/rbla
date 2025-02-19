@@ -13,7 +13,6 @@ import about3 from "../Components/Assets/about3.png";
 import vaalogo from "../Components/Assets/vaalogo.png";
 import sirlogo from "../Components/Assets/sirlogo.png";
 
-
 const AboutPage = () => {
   const navigate = useNavigate();
   const [showMore, setShowMore] = useState(false);
@@ -42,6 +41,13 @@ const AboutPage = () => {
         <h1>SURVIVOR PRODUCTS</h1>
         <p>** **</p>
       </header>
+
+      {/* Marquee Section */}
+      <div className="marquee-container">
+        <marquee behavior="scroll" direction="left">
+          🎉 Welcome to Survivor Products! | Supporting Bonded Labourers | Shop & Make a Difference!
+        </marquee>
+      </div>
 
       {/* Hero Section */}
       <section className="about-hero">
@@ -82,20 +88,15 @@ const AboutPage = () => {
         {/* Slider Section */}
         <div className="hero-image-slider">
           <Slider {...sliderSettings}>
-            {/* Using imported images here */}
-        
             <div>
-            
               <img src={about1} alt="Slide 1" /> 
             </div>
             <div>
               <img src={about2} alt="Slide 2" />
             </div>
             <div>
-              <img src={about3} alt="Slide 2" />
+              <img src={about3} alt="Slide 3" />
             </div>
-            
-            {/* You can add more slides like the above */}
           </Slider>
         </div>
       </section>

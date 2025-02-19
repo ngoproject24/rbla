@@ -3,16 +3,52 @@ import "./Header.css";
 import logo from "../Assets/logo.png";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faShoppingCart, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faShoppingCart, faBars } from "@fortawesome/free-solid-svg-icons";
 import flag from "../Assets/in.png";
 import heart from "../Assets/heart.png";
+import search from "../Assets/search.png";
 
 // Dummy CartContext (Replace with your actual context)
 const CartContext = React.createContext({ cartCount: 0 }); // Replace with actual CartContext provider if used
 
 export const Header = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [query, setQuery] = useState(""); // State for the search query
+  const [searchResults, setSearchResults] = useState([]); // State for search results
   const { cartCount } = useContext(CartContext); // Use cartCount from CartContext
+
+  // Function to handle search
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (query.trim() === "") {
+      setSearchResults([]); // Clear search results if query is empty
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:4000/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setSearchResults(data); // Set search results if successful
+      } else {
+        setSearchResults([]); // Clear search results if no products found
+      }
+    } catch (error) {
+      console.error("Error searching products:", error);
+    }
+  };
+
+  // Update search query when user types
+  const handleInputChange = (e) => {
+    setQuery(e.target.value);
+  };
 
   // Toggle dropdown visibility
   const handleMouseEnter = () => {
@@ -52,42 +88,62 @@ export const Header = () => {
         <div className="location">
           <div>Delivering to Chennai 600009</div>
           <div>
-            <a href="#" style={{ color: "#00A8E1" }}>
-              Update location
-            </a>
+            <ul>
+              <li>
+                <Link to="/UpdateLocation">Update Location</Link>
+              </li>
+            </ul>
           </div>
         </div>
-        <div className="search-bar">
-          <select>
-            <option value="all">All</option>
-          </select>
-          <input type="text" defaultValue="block print cotton bags" />
+        
+          
+          <div className="input-container">
+  <input
+    type="text"
+    value={query}
+    onChange={handleInputChange}
+    placeholder="Search products..."
+  />
+  {/*<img src={} alt="Search Icon" className="search-icon" />
+
+      
+          {/* Optional: Display search results */}
+          {searchResults.length > 0 && (
+            <div className="search-results">
+              <ul>
+                {searchResults.map((product) => (
+                  <li key={product._id}>
+                    <Link to={`/product/${product._id}`}>{product.name}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
         <div className="options">
           <div className="in">
-          <img src={flag} alt="in" width="20" height="20" />
+            <img src={flag} alt="India Flag" width="20" height="20" />
           </div>
           <div>IND</div>
           <div>
             <Link to="/login" style={{ color: "white" }}>
               Hello, sign in
               <br />
-              Account & Lists
+              Account
             </Link>
           </div>
           <div>
-            <a href="#" style={{ color: "white" }}>
+            <Link to="/ReturnOrder" style={{ color: "white" }}>
               Returns
               <br />
               & Orders
-            </a>
+            </Link>
           </div>
           <div className="heart">
-  <Link to="/Wishlist">
-    <img src={heart} alt="heart" width="20" height="20" />
-  </Link>
-</div>
-
+            <Link to="/Wishlist">
+              <img src={heart} alt="Wishlist" width="20" height="20" />
+            </Link>
+          </div>
           <div>
             <Link to="/cart" style={{ color: "white" }}>
               <FontAwesomeIcon icon={faShoppingCart} /> Cart ({cartCount})
@@ -97,10 +153,12 @@ export const Header = () => {
       </div>
 
       {/* Navigation Links */}
-      <div className="nav-links">
-        <a href="#">
-          <FontAwesomeIcon icon={faBars} /> All
-        </a>
+      <ul className="nav-links">
+        <li>
+          <Link to="#">
+            <FontAwesomeIcon icon={faBars} /> All
+          </Link>
+        </li>
         <li>
           <Link to="/AboutPage">About Us</Link>
         </li>
@@ -114,40 +172,21 @@ export const Header = () => {
           </Link>
           {isDropdownVisible && (
             <ul className="dropdown-menu">
-              <li>
-                <Link to="/towels">Towels</Link>
-              </li>
-              <li>
-                <Link to="/bedsheets">Bedsheets</Link>
-              </li>
-              <li>
-                <Link to="/napkins">Napkins</Link>
-              </li>
-              <li>
-                <Link to="/bags">Bags</Link>
-              </li>
-              <li>
-                <Link to="/cupcoaster">Cupcoaster</Link>
-              </li>
-              <li>
-                <Link to="/paperfiles">Paperfiles</Link>
-              </li>
-              <li>
-                <Link to="/bamboo">Bamboo</Link>
-              </li>
+              <li><Link to="/towels">Towels</Link></li>
+              <li><Link to="/bedsheets">Bedsheets</Link></li>
+              <li><Link to="/napkins">Napkins</Link></li>
+              <li><Link to="/bags">Bags</Link></li>
+              <li><Link to="/cupcoaster">Cupcoaster</Link></li>
+              <li><Link to="/paperfiles">Paperfiles</Link></li>
+              <li><Link to="/bamboo">Bamboo</Link></li>
             </ul>
           )}
         </li>
-        <li>
-          <Link to="/admin">Admin</Link>
-        </li>
-        <li>
-          <Link to="/Gallery">Gallery</Link>
-        </li>
-        <li>
-          <Link to="/ContactUs">ContactUs</Link>
-        </li>
-      </div>
+        <li><Link to="/admin">Admin</Link></li>
+        <li><Link to="/Gallery">Gallery</Link></li>
+        <li><Link to="/ContactUs">Contact Us</Link></li>
+        <li><Link to="/adminpanel">UnitPage</Link></li>
+      </ul>
     </div>
   );
 };
