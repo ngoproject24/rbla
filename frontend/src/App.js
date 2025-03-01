@@ -1,11 +1,10 @@
-import React, { useState } from 'react'; // ✅ Import useState
+import React, { useState } from 'react'; 
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { LoginSignup } from './Pages/LoginSignup';
 import Cart from './Pages/Cart';
 import { Home } from './Pages/Home';
 import ProductDetails from './Pages/ProductDetails';
-
 import Towels from './Pages/Towels';
 import Wishlist from './Pages/Wishlist';
 import Bags from './Pages/Bags';
@@ -25,7 +24,6 @@ import Checkout from './Pages/Checkout';
 import PlaceOrder from './Pages/PlaceOrder';
 import AboutPage from './Pages/AboutPage';
 import ProductPage from './Pages/ProductPage';
-
 import ContactUs from './Pages/ContactUs';
 import Gallery from './Pages/Gallery';
 import Vaagai from './Pages/vaagai';
@@ -39,67 +37,75 @@ import UserProfile from './Pages/UserProfile';
 import { WishlistProvider } from "./Context/WishlistContext";
 import { CartProvider } from "./Context/CartContext";
 import MyOrders from './Pages/MyOrders';
-import AdminPanel from "./Pages/AdminPanel"; // ✅ Corrected import path
-import UnitPage from "./Pages/UnitPage"; // ✅ Ensure UnitPage.js exists in Pages
-
+import AdminPanel from "./Pages/AdminPanel"; 
 import PaymentPage from './Pages/PaymentPage';
+import Marquee from './Pages/Marquee';
+import Chatbot from './Components/Chatbot/Chatbot';
+
+
 
 const App = () => {
-  const [units, setUnits] = useState([]); // ✅ Corrected useState import
+  const [units, setUnits] = useState([]); 
 
   const addUnit = (newUnit) => {
-    setUnits([...units, newUnit]);
+    setUnits((prevUnits) => [...prevUnits, newUnit]);
   };
 
+  
   return (
-    <WishlistProvider>
-      <CartProvider>
-        <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/login" element={<LoginSignup />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/towels" element={<Towels />} />
-            <Route path="/bags" element={<Bags />} />
-            <Route path="/napkins" element={<Napkins />} />
-            <Route path="/bedsheets" element={<Bedsheets />} />
-            <Route path="/cupcoaster" element={<Cupcoaster />} />
-            <Route path="/bamboo" element={<Bamboo />} />
-            <Route path="/paperfiles" element={<Paperfiles />} />
-            <Route path="/custproduct" element={<CustProduct />} />
-            <Route path="/paintapp" element={<PaintApp />} />
-            <Route path="/listproduct" element={<ListProduct />} />
-            <Route path="/addproduct" element={<AddProduct />} />
-            <Route path="/customdesignpage" element={<CustomDesignPage />} />
-            <Route path="/uploaddesignandcheckout" element={<UploadDesignAndCheckout />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/placeorder" element={<PlaceOrder />} />
-            <Route path="/AboutPage" element={<AboutPage />} />
-            <Route path="/ProductPage" element={<ProductPage />} />
-            <Route path="/ContactUs" element={<ContactUs />} />
-            <Route path="/Gallery" element={<Gallery />} />
-            <Route path="/Vaagai" element={<Vaagai />} />
-            <Route path="/varnam" element={<Varnam />} />
-            <Route path="/siragugal" element={<Siragugal />} />
-            <Route path="/UpdateLocation" element={<UpdateLocation />} />
-            <Route path="/ReturnOrder" element={<ReturnsOrders />} />
-            <Route path="/UserProfile" element={<UserProfile />} />
-            <Route path="/MyOrders" element={<MyOrders />} />
-            <Route path="/PaymentPage" element={<PaymentPage />} />
-            
+    
+    
+      <WishlistProvider>
+        <CartProvider>
+          <BrowserRouter>
+            <Header />
+            <Marquee />
 
-            {/* Admin Panel Route */}
-            <Route path="/admin" element={<AdminPanel addUnit={addUnit} />} />
-            <Route path="/unit/:unitSlug" element={<UnitPage units={units} />} />
-          </Routes>
-          <Footer />
-        </BrowserRouter>
-      </CartProvider>
-    </WishlistProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/login" element={<LoginSignup />} />
+              <Route path="/product/:id" element={<ProductDetails />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/towels" element={<Towels />} />
+              <Route path="/bags" element={<Bags />} />
+              <Route path="/napkins" element={<Napkins />} />
+              <Route path="/bedsheets" element={<Bedsheets />} />
+              <Route path="/cupcoaster" element={<Cupcoaster />} />
+              <Route path="/bamboo" element={<Bamboo />} />
+              <Route path="/paperfiles" element={<Paperfiles />} />
+              <Route path="/custproduct" element={<CustProduct />} />
+              <Route path="/paintapp" element={<PaintApp />} />
+              <Route path="/listproduct" element={<ListProduct />} />
+              <Route path="/addproduct" element={<AddProduct />} />
+              <Route path="/customdesignpage" element={<CustomDesignPage />} />
+              <Route path="/uploaddesignandcheckout" element={<UploadDesignAndCheckout />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/placeorder" element={<PlaceOrder />} />
+              <Route path="/AboutPage" element={<AboutPage />} />
+              <Route path="/ProductPage" element={<ProductPage />} />
+              <Route path="/ContactUs" element={<ContactUs />} />
+              <Route path="/Gallery" element={<Gallery />} />
+              <Route path="/Vaagai" element={<Vaagai />} />
+              <Route path="/varnam" element={<Varnam />} />
+              <Route path="/siragugal" element={<Siragugal />} />
+              <Route path="/UpdateLocation" element={<UpdateLocation />} />
+              <Route path="/ReturnOrder" element={<ReturnsOrders />} />
+              <Route path="/UserProfile" element={<UserProfile />} />
+              <Route path="/MyOrders" element={<MyOrders />} />
+              <Route path="/PaymentPage" element={<PaymentPage />} />
+
+              {/* Admin Panel Route */}
+              <Route path="/adminpanel" element={<AdminPanel addUnit={addUnit} />} />
+            </Routes>
+            
+            <Footer />
+            <Chatbot />
+          </BrowserRouter>
+        </CartProvider>
+      </WishlistProvider>
+    
   );
 };
 

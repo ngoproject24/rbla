@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import './AddProduct.css';
-import upload_area from '../Assets/upload_area.png'; // Ensure the path is correct
+import React, { useState } from "react";
+import "./AddProduct.css";
+import upload_area from "../Assets/upload_area.png"; // Ensure the path is correct
 
 const AddProduct = () => {
   const [images, setImages] = useState([]);
@@ -24,61 +24,74 @@ const AddProduct = () => {
   };
 
   const Add_Product = async () => {
-    console.log(productDetails);
-    let responseData;
-    let product = productDetails;
+    try {
+      console.log(productDetails);
+      let responseData;
+      let product = productDetails;
 
-    let formData = new FormData();
-    images.forEach((image) => formData.append('product_images', image));
+      let formData = new FormData();
+      images.forEach((image) => formData.append("product_images", image));
 
-    await fetch('http://localhost:4000/upload', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-      },
-      body: formData,
-    }).then((resp) => resp.json()).then((data) => { responseData = data });
-
-    if (responseData?.success) {
-      product.images = responseData.image_urls;
-      console.log(product);
-      await fetch('http://localhost:4000/addproduct', {
-        method: 'POST',
+      const uploadResponse = await fetch("http://localhost:4000/upload", {
+        method: "POST",
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          Accept: "application/json",
         },
-        body: JSON.stringify(product),
-      }).then((resp) => resp.json()).then((data) => {
-        data?.success ? alert("Product Added Successfully") : alert("Product Addition Failed");
+        body: formData,
       });
+
+      responseData = await uploadResponse.json();
+
+      if (responseData?.success) {
+        product.images = responseData.image_urls;
+
+        const addProductResponse = await fetch("http://localhost:4000/addproduct", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(product),
+        });
+
+        const addProductData = await addProductResponse.json();
+        addProductData?.success
+          ? alert("Product Added Successfully")
+          : alert("Product Addition Failed");
+      }
+    } catch (error) {
+      console.error("Error adding product:", error);
     }
   };
 
   return (
+  <div>
+    
     <div className="add-product">
-      <h1 className="add-product-title">Add New Product</h1>
       
+      <h1 className="add-product-title">Add New Product</h1>
+
       {/* Product Name */}
       <div className="addproduct-itemfield">
         <p>Product Name</p>
-        <input 
-          value={productDetails.name} 
-          onChange={changeHandler} 
-          type="text" 
-          name="name" 
-          placeholder="Enter product name" 
+        <input
+          value={productDetails.name}
+          onChange={changeHandler}
+          type="text"
+          name="name"
+          placeholder="Enter product name"
         />
       </div>
 
       {/* Category */}
       <div className="addproduct-itemfield">
         <p>Category</p>
-        <select 
-          value={productDetails.category} 
-          onChange={changeHandler} 
-          name="category" 
-          className="add-product-selector">
+        <select
+          value={productDetails.category}
+          onChange={changeHandler}
+          name="category"
+          className="add-product-selector"
+        >
           <option value="blockprinting">Block Printing</option>
           <option value="cupcoaster">Cup Coaster</option>
           <option value="paperfiles">Paper Files</option>
@@ -90,22 +103,22 @@ const AddProduct = () => {
       <div className="addproduct-price">
         <div className="addproduct-itemfield">
           <p>Price</p>
-          <input 
-            value={productDetails.price} 
-            onChange={changeHandler} 
-            type="number" 
-            name="price" 
-            placeholder="Enter price" 
+          <input
+            value={productDetails.price}
+            onChange={changeHandler}
+            type="number"
+            name="price"
+            placeholder="Enter price"
           />
         </div>
         <div className="addproduct-itemfield">
           <p>Discount (%)</p>
-          <input 
-            value={productDetails.discount} 
-            onChange={changeHandler} 
-            type="number" 
-            name="discount" 
-            placeholder="Enter discount percentage" 
+          <input
+            value={productDetails.discount}
+            onChange={changeHandler}
+            type="number"
+            name="discount"
+            placeholder="Enter discount percentage"
           />
         </div>
       </div>
@@ -113,35 +126,35 @@ const AddProduct = () => {
       {/* Stock Quantity */}
       <div className="addproduct-itemfield">
         <p>Stock Quantity</p>
-        <input 
-          value={productDetails.stock} 
-          onChange={changeHandler} 
-          type="number" 
-          name="stock" 
-          placeholder="Enter stock quantity" 
+        <input
+          value={productDetails.stock}
+          onChange={changeHandler}
+          type="number"
+          name="stock"
+          placeholder="Enter stock quantity"
         />
       </div>
 
       {/* SKU */}
       <div className="addproduct-itemfield">
         <p>SKU/ID</p>
-        <input 
-          value={productDetails.sku} 
-          onChange={changeHandler} 
-          type="text" 
-          name="sku" 
-          placeholder="Enter product SKU or ID" 
+        <input
+          value={productDetails.sku}
+          onChange={changeHandler}
+          type="text"
+          name="sku"
+          placeholder="Enter product SKU or ID"
         />
       </div>
 
       {/* Description */}
       <div className="addproduct-itemfield">
         <p>Description</p>
-        <textarea 
-          value={productDetails.description} 
-          onChange={changeHandler} 
-          name="description" 
-          placeholder="Enter product description" 
+        <textarea
+          value={productDetails.description}
+          onChange={changeHandler}
+          name="description"
+          placeholder="Enter product description"
           rows="4"
         />
       </div>
@@ -149,24 +162,27 @@ const AddProduct = () => {
       {/* Images */}
       <div className="addproduct-itemfield">
         <label htmlFor="file-input" className="file-input-label">
-          <img 
-            src={images.length > 0 ? URL.createObjectURL(images[0]) : upload_area} 
-            className="addproduct-thumbnail-img" 
-            alt="Upload Thumbnail" 
+          <img
+            src={images.length > 0 ? URL.createObjectURL(images[0]) : upload_area}
+            className="addproduct-thumbnail-img"
+            alt="Upload Thumbnail"
           />
         </label>
-        <input 
-          onChange={imageHandler} 
-          type="file" 
-          name="images" 
-          id="file-input" 
-          hidden 
-          multiple 
+        <input
+          onChange={imageHandler}
+          type="file"
+          name="images"
+          id="file-input"
+          hidden
+          multiple
         />
       </div>
 
       {/* Submit Button */}
-      <button onClick={Add_Product} className="addproduct-btn">Add Product</button>
+      <button onClick={Add_Product} className="addproduct-btn">
+        Add Product
+      </button>
+    </div>
     </div>
   );
 };

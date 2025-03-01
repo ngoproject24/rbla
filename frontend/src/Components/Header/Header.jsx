@@ -9,19 +9,18 @@ import heart from "../Assets/heart.png";
 import search from "../Assets/search.png";
 
 // Dummy CartContext (Replace with your actual context)
-const CartContext = React.createContext({ cartCount: 0 }); // Replace with actual CartContext provider if used
+const CartContext = React.createContext({ cartCount: 0 });
 
 export const Header = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const [query, setQuery] = useState(""); // State for the search query
-  const [searchResults, setSearchResults] = useState([]); // State for search results
-  const { cartCount } = useContext(CartContext); // Use cartCount from CartContext
+  const [query, setQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const { cartCount } = useContext(CartContext);
 
-  // Function to handle search
   const handleSearch = async (e) => {
     e.preventDefault();
     if (query.trim() === "") {
-      setSearchResults([]); // Clear search results if query is empty
+      setSearchResults([]);
       return;
     }
 
@@ -36,21 +35,19 @@ export const Header = () => {
 
       const data = await response.json();
       if (response.ok) {
-        setSearchResults(data); // Set search results if successful
+        setSearchResults(data);
       } else {
-        setSearchResults([]); // Clear search results if no products found
+        setSearchResults([]);
       }
     } catch (error) {
       console.error("Error searching products:", error);
     }
   };
 
-  // Update search query when user types
   const handleInputChange = (e) => {
     setQuery(e.target.value);
   };
 
-  // Toggle dropdown visibility
   const handleMouseEnter = () => {
     setDropdownVisible(true);
   };
@@ -70,7 +67,6 @@ export const Header = () => {
     }
   };
 
-  // Attach and remove event listeners for clicks outside
   useEffect(() => {
     document.addEventListener("click", handleOutsideClick);
     return () => {
@@ -95,19 +91,20 @@ export const Header = () => {
             </ul>
           </div>
         </div>
-        
-          
-          <div className="input-container">
-  <input
-    type="text"
-    value={query}
-    onChange={handleInputChange}
-    placeholder="Search products..."
-  />
-  {/*<img src={} alt="Search Icon" className="search-icon" />
 
-      
-          {/* Optional: Display search results */}
+        {/* Search Bar */}
+        <div className="input-container">
+          <input
+            type="text"
+            value={query}
+            onChange={handleInputChange}
+            placeholder="Search products..."
+          />
+          <button onClick={handleSearch}>
+            <img src={search} alt="Search Icon" className="search-icon" />
+          </button>
+
+          {/* Display search results */}
           {searchResults.length > 0 && (
             <div className="search-results">
               <ul>
@@ -120,6 +117,7 @@ export const Header = () => {
             </div>
           )}
         </div>
+
         <div className="options">
           <div className="in">
             <img src={flag} alt="India Flag" width="20" height="20" />

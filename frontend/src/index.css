@@ -1,14 +1,82 @@
+/* Define default (light mode) theme */
+:root {
+  --body_background: white;
+  --body_color: black;
+  --link_color: navy;
+}
+
+/* Define dark mode theme */
+[data-theme="dark"] {
+  --body_background: #282c34;
+  --body_color: white;
+  --link_color: cyan;
+}
+
+/* Apply theme colors */
 body {
+  background-color: var(--body_background);
+  color: var(--body_color);
+  transition: background-color 0.3s ease, color 0.3s ease;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'poppins';
 }
 
+/* Links should change color based on theme */
+a {
+  color: var(--link_color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+/* Code block styling */
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/* Dark Mode Toggle Styles */
+.dark_mode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.dark_mode_input {
+  display: none; /* Hide default checkbox */
+}
+
+.dark_mode_label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50px;
+  height: 25px;
+  background: #ccc;
+  border-radius: 50px;
+  padding: 5px;
+  cursor: pointer;
+  position: relative;
+}
+
+.dark_mode_label img {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+/* Move the icons for dark mode */
+[data-theme="dark"] .dark_mode_label {
+  background: #333;
+}
+
+[data-theme="dark"] .dark_mode_label img:first-child {
+  transform: translateX(25px);
+}
+
+[data-theme="dark"] .dark_mode_label img:last-child {
+  transform: translateX(-25px);
 }

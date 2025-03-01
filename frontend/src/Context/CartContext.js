@@ -1,41 +1,182 @@
+/*import React, { createContext, useState, useEffect } from "react";
+
+export const CartContext = createContext();
+
+export const CartProvider = ({ children }) => {
+  const [cart, setCart] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem("auth_token")); // Track token in state
+
+  // Add event listener for storage changes
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const newToken = localStorage.getItem("auth_token");
+      setToken(newToken);
+      if (!newToken) setCart([]); // Clear cart when token is removed
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
+  // Fetch cart when token changes
+  useEffect(() => {
+    const fetchCart = async () => {
+      if (!token) return;
+      
+      setLoading(true);
+      try {
+        const response = await fetch("http://localhost:4000/cart/get", {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setCart(data.items || []);
+        }
+      } catch (err) {
+        console.error("Fetch cart error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCart();
+  }, [token]);
+
+  // Always get fresh token for API calls
+  const getAuthHeader = () => {
+    const currentToken = localStorage.getItem("auth_token");
+    return { "Authorization": `Bearer ${currentToken}` };
+  };
+
+  const addToCart = async (item) => {
+    const currentToken = localStorage.getItem("auth_token");
+    if (!currentToken) {
+      alert("Please login to add items to cart");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      // Fixed endpoint URL (removed typo)
+      const response = await fetch("http://localhost:4000/cartss/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeader()
+        },
+        body: JSON.stringify({
+          productid: item.productid,
+          quantity: 1,
+          images: item.images,
+          productName: item.productName,
+          new_price: item.new_price,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setCart(data.updatedCart);
+      }
+    } catch (err) {
+      console.error("Add to cart error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Similar fixes for removeItem and updateQuantity functions
+  const removeItem = async (productid) => {
+    const currentToken = localStorage.getItem("auth_token");
+    if (!currentToken) return;
+
+    setLoading(true);
+    try {
+      const response = await fetch("http://localhost:4000/cartss/remove", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeader()
+        },
+        body: JSON.stringify({ productid }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setCart(data.updatedCart);
+      }
+    } catch (err) {
+      console.error("Remove item error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const cartCount = cart.reduce((count, item) => count + item.quantity, 0);
+
+  return (
+    <CartContext.Provider
+      value={{
+        cart,
+        setCart,
+        addToCart,
+        removeItem,
+        cartCount,
+        loading,
+        error,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
+};*/
 import React, { createContext, useState, useEffect } from "react";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  const [loading, setLoading] = useState(false); // Track loading state for API calls
-  const [error, setError] = useState(null); // Handle errors if needed
-  const [hasToken, setHasToken] = useState(false); // Track if token is available
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [hasToken, setHasToken] = useState(false);
 
   const token = localStorage.getItem("auth_token");
 
   useEffect(() => {
     if (token) {
       setHasToken(true);
-      fetchCart(); // Fetch cart data if token is available
+      fetchCart();
     } else {
       setHasToken(false);
     }
   }, [token]);
 
-  // Fetch cart items from the server
+  // Fetch cart items
   const fetchCart = async () => {
-    if (!hasToken) return; // If no token, don't fetch
-
+    if (!hasToken) return;
     setLoading(true);
     try {
       const response = await fetch("http://localhost:4000/cart/get", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
-      const data = await response.json();
+      const text = await response.text(); // Get raw response
+      let data;
+      try {
+        data = JSON.parse(text); // Try parsing JSON
+      } catch (err) {
+        console.error("Invalid JSON response:", text);
+        throw new Error("Invalid response from server");
+      }
+
       if (response.ok) {
-        setCart(data.items || []); // Set the cart with the fetched items
+        setCart(data.items || []);
       } else {
         setError(data.message || "Error fetching cart.");
       }
@@ -47,7 +188,7 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // Add item to cart with default quantity of 1
+  // Add item to cart
   const addToCart = async (item) => {
     if (!hasToken) {
       alert("No token found. Please log in.");
@@ -56,14 +197,14 @@ export const CartProvider = ({ children }) => {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/cartss/add", {
+      const response = await fetch("http://localhost:4000/cart/add", {  // Ensure this endpoint exists
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          productid: item.productid, // Send productid directly
+          productid: item.productid,
           quantity: 1,
           images: item.images,
           productName: item.productName,
@@ -71,11 +212,18 @@ export const CartProvider = ({ children }) => {
         }),
       });
 
-      const data = await response.json();
+      const text = await response.text(); // Handle raw response
+      let data;
+      try {
+        data = JSON.parse(text); 
+      } catch (err) {
+        console.error("Invalid JSON response:", text);
+        throw new Error("Invalid response from server");
+      }
+
       if (response.ok) {
         alert(`${item.productName} added to cart!`);
-        // Update cart state immediately to reflect the change
-        setCart((prevCart) => [...prevCart, { ...item, quantity: 1 }]); // Add to cart state
+        setCart((prevCart) => [...(prevCart || []), { ...item, quantity: 1 }]);
       } else {
         setError(data.message || "Error adding product to cart.");
       }
@@ -89,7 +237,6 @@ export const CartProvider = ({ children }) => {
 
   // Remove item from cart
   const removeItem = async (item) => {
-    const productid = item.productid;
     if (!hasToken) {
       alert("No token found. Please log in.");
       return;
@@ -97,20 +244,27 @@ export const CartProvider = ({ children }) => {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/cartss/remove", {
+      const response = await fetch("http://localhost:4000/cart/remove", { // Verify this endpoint
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ productid }),
+        body: JSON.stringify({ productid: item.productid }),
       });
 
-      const data = await response.json();
+      const text = await response.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (err) {
+        console.error("Invalid JSON response:", text);
+        throw new Error("Invalid response from server");
+      }
+
       if (response.ok) {
         alert("Item removed from cart.");
-        // Update cart state immediately to reflect the change
-        setCart((prevCart) => prevCart.filter((item) => item.productid !== productid)); // Update cart state
+        setCart((prevCart) => prevCart.filter((i) => i.productid !== item.productid));
       } else {
         setError(data.message || "Error removing product from cart.");
       }
@@ -122,7 +276,7 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // Update quantity of item in cart
+  // Update quantity of item
   const updateQuantity = async (productid, newQuantity) => {
     if (!hasToken) {
       alert("No token found. Please log in.");
@@ -136,16 +290,24 @@ export const CartProvider = ({ children }) => {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/cart/update", {
+      const response = await fetch("http://localhost:4000/cart/update", { // Verify this endpoint
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ productid, quantity: newQuantity }),
       });
 
-      const data = await response.json();
+      const text = await response.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (err) {
+        console.error("Invalid JSON response:", text);
+        throw new Error("Invalid response from server");
+      }
+
       if (response.ok) {
         setCart((prevCart) =>
           prevCart.map((item) =>
@@ -164,8 +326,8 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // Calculate total items count in cart (considering quantities)
-  const cartCount = cart.reduce((count, item) => count + item.quantity, 0);
+  // Calculate total items count
+  const cartCount = (cart || []).reduce((count, item) => count + item.quantity, 0);
 
   return (
     <CartContext.Provider

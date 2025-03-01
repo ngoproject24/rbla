@@ -42,12 +42,7 @@ const AboutPage = () => {
         <p>** **</p>
       </header>
 
-      {/* Marquee Section */}
-      <div className="marquee-container">
-        <marquee behavior="scroll" direction="left">
-          🎉 Welcome to Survivor Products! | Supporting Bonded Labourers | Shop & Make a Difference!
-        </marquee>
-      </div>
+      
 
       {/* Hero Section */}
       <section className="about-hero">

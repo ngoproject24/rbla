@@ -1,0 +1,45 @@
+/* Marquee Container */
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    background-color: #f8f9fa; /* Light gray background */
+    padding: 10px 0;
+    border-top: 2px solid #007bff; /* Blue border at the top */
+    border-bottom: 2px solid #007bff; /* Blue border at the bottom */
+  }
+  
+  /* Marquee Text */
+  marquee {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333; /* Dark gray text color */
+    white-space: nowrap;
+    padding: 5px 0;
+  }
+  
+  /* Add some animation effects to the marquee */
+  marquee {
+    animation: scroll-text 20s linear infinite;
+  }
+  
+  @keyframes scroll-text {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  /* Hover effect for marquee */
+  marquee:hover {
+    color: #007bff; /* Change text color on hover */
+    cursor: pointer;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    marquee {
+      font-size: 16px; /* Smaller font size for mobile devices */
+    }
+  }

@@ -1,55 +1,64 @@
 const mongoose = require('mongoose');
-const Order = require('./Order');  
 const userSchema = new mongoose.Schema({
     userid: { 
-        type: Number,
-        required: true,
-        unique: true,
+      type: Number,
+      required: true,
+      unique: true,
     },
     name: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     email: {
-        type: String,
-        required: true,
-        unique: true,
-        match: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, // Email format validation
+      type: String,
+      required: true,
+      unique: true,
+      match: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, 
     },
     password: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
-    address: {
+    // Address updated to include the new fields
+    address: [{
+      street: {
+        type: String,
+      },
+      landmark: {  // Ensure landmark is included
         type: String,
         default: "", 
-    },
-    phone_number: {
+      },
+      city: {
         type: String,
-        default: "",  
-    },
-    orders: [{
-        orderId: { type: String, required: true },
-        products: [{
-            productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },  
-            quantity: { type: Number, default: 1 }
-        }],
-        totalAmount: { type: Number, required: true },
-        orderDate: { type: Date, default: Date.now },
-        status: { type: String, enum: ['pending', 'shipped', 'delivered', 'canceled'], default: 'pending' }
+      },
+      state:{
+        type: String,
+      },
+      pincode: {  // Ensure pincode is included
+        type: String,
+      },
+      country: {
+        type: String,
+      },
+      phone: {
+        type: String,
+        default: "", 
+      },
     }],
+    phone_number: {
+      type: String,
+      default: "",  
+    },
     role: {
-        type: String,
-        enum: ['user', 'admin','vendor'],
-        default: 'user',  // Default role is 'user'
+      type: String,
+      enum: ['user', 'admin', 'vendor'],
+      default: 'user',  // Default role is 'user'
     },
     date: {
-        type: Date,
-        default: Date.now,
+      type: Date,
+      default: Date.now,
     },
-});
-
-// Use "userSchema" for the model name, not the string "Users"
-//module.exports = mongoose.model('Users', userSchema);
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+  });
+  
+  const User = mongoose.model('User', userSchema);
+  module.exports = User;

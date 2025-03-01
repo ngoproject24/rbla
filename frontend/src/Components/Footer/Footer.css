@@ -1,13 +1,13 @@
 /* Footer Styles */
 .footer {
-  background-color: #fff8e1; /* Light yellow background */
+  background-color: #232f3e; /* Light yellow background */
   color: #f57f17;  /* Dark yellow text */
   font-family: Arial, sans-serif;
 }
 
 /* Footer Top Section */
 .footer-top {
-  background-color: #fbc02d; /* Dark yellow background */
+  background-color: #068cf2; /* Dark yellow background */
   text-align: center;
   padding: 10px;
 }
@@ -28,7 +28,7 @@
 .footer-column h4 {
   margin-bottom: 10px;
   font-size: 16px;
-  color: #f57f17; /* Dark yellow headings */
+  color: white; /* Dark yellow headings */
 }
 
 .footer-column ul {
@@ -42,13 +42,13 @@
 }
 
 .footer-column ul li a {
-  color: #f57f17; /* Dark yellow links */
+  color: white; /* Dark yellow links */
   text-decoration: none;
   font-size: 14px;
 }
 
 .footer-column ul li a:hover {
-  color: #fbc02d; /* Lighter yellow on hover */
+  color: rgb(216, 132, 241); /* Lighter yellow on hover */
   text-decoration: underline;
 }
 
@@ -58,7 +58,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 50px;
-  background-color: #f57f17; /* Dark yellow background */
+  background-color: #068cf2; /* Dark yellow background */
 }
 
 .footer-logo span {
@@ -70,17 +70,17 @@
 .footer-country button {
   background: none;
   color: white;
-  border: 1px solid #f57f17; /* Dark yellow border */
+  border: 1px solid black; /* Dark yellow border */
   padding: 5px 10px;
-  margin-left: 10px;
+  margin-right: 35px;
   border-radius: 4px;
   font-size: 14px;
   cursor: pointer;
 }
 
 .footer-country button:hover {
-  background-color: #fbc02d; /* Lighter yellow on hover */
-  border-color: #fbc02d; /* Lighter yellow border */
+  background-color:  rgb(216, 132, 241); /* Lighter yellow on hover */
+  border-color: black; /* Lighter yellow border */
 }
 
 /* Mobile/Responsive Styles */

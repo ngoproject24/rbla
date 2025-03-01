@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import "./ProductDetail.css";
+import "./ProductDetails.css";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -8,38 +8,21 @@ const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   const [mainImage, setMainImage] = useState("");
-
   const [category, setCategory] = useState("Adult"); // Default category
   const [setOption, setSetOption] = useState("Single"); // Default set
   const [quantity, setQuantity] = useState(1);
 
-  // Fetch product data from the API
+  // Fetch product data
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch("http://localhost:4000/products/${productId}");
-        if (!response.ok) {
-          throw new Error(`Error: ${response.statusText}`);
-        }
+        const response = await fetch(`http://localhost:4000/products/${productId}`);
+        if (!response.ok) throw new Error(`Error: ${response.statusText}`);
         const data = await response.json();
 
-        // Check if no subimages are available and set mainImage accordingly
-        const images = data.images || [];
-        if (images.length === 0) {
-          setMainImage(""); // Set to empty if no subimages available
-        } else if (images.length === 1) {
-          setMainImage(images[0]); // If one image, set it as mainImage
-        } else {
-          setMainImage(images[0]); // Set the first image as the default mainImage
-        }
-
-        setProduct({
-          ...data,
-          images, // Ensure images are properly set
-        });
-
+        setMainImage(data.images?.length ? data.images[0] : "default-image-url");
+        setProduct(data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -50,51 +33,30 @@ const ProductDetail = () => {
     fetchProduct();
   }, [productId]);
 
-  // Calculate total price based on category, set, and quantity
+  // Calculate total price
   const calculateTotalPrice = () => {
-    const basePrice = product?.new_price || 0;
-    const categoryMultiplier = category === "Adult" ? 1 : 0.8; // Adult: full price, Child: 80%
-    const setMultiplier = setOption === "Single" ? 1 : 2; // Single: 1x, Pair: 2x
+    if (!product) return "0.00";
+    const basePrice = product.new_price || 0;
+    const categoryMultiplier = category === "Adult" ? 1 : 0.8;
+    const setMultiplier = setOption === "Single" ? 1 : 2;
     return (basePrice * categoryMultiplier * setMultiplier * quantity).toFixed(2);
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!product) {
-    return <div>Product not found!</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!product) return <div>Product not found!</div>;
 
   return (
-    <div className="product-detail">
+    <div className="product-details">
       {/* Left Section - Image Gallery */}
       <div className="image-gallery">
-        <img src={mainImage || "default-image-url"} alt={product.name} className="main-image" />
-        <div className="thumbnails">
-          {product.images?.length > 0 ? (
-            product.images.map((image, index) => (
-              <img
-                key={index}
-                src={image}
-                alt={Thumbnail `${index + 1}`}
-                className="thumbnail"
-                onClick={() => setMainImage(image)}
-                role="button"
-                aria-label={Thumbnail `${index + 1}`}
-              />
-            ))
-          ) : (
-            <p>No images available</p>
-          )}
+        <div className="main-image-container">
+          <img src={mainImage} alt={product.name} className="main-image" />
         </div>
+        
       </div>
 
-      {/* Right Section - Product Information */}
+      {/* Right Section - Product Info */}
       <div className="product-info">
         <h1>{product.name}</h1>
         <p className="price">
@@ -144,7 +106,7 @@ const ProductDetail = () => {
         </div>
 
         {/* Add to Cart Button */}
-        <button className="add-to-cart">Add To Cart</button>
+        <button className="add-to-cart-btn">Add To Cart</button>
 
         {/* Offers Section */}
         <div className="offers">

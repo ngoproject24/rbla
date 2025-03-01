@@ -1,16 +1,17 @@
 /* Global Reset */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Inter, sans-serif;
 }
 
 /* Header Section */
 .header {
-  background-color: #131a22;
-  color: white;
+  background-color: #068cf2;
+  color: black;
   display: flex;
   align-items: center;
   padding: 10px 20px;
+  justify-content: space-between;
 }
 
 /* Logo Section */
@@ -24,7 +25,7 @@ body {
   font-size: 14px;
 }
 .header .location a {
-  color: #00a8e1;
+  color: rgb(243, 5, 191);
   text-decoration: none;
 }
 .header .location a:hover {
@@ -36,6 +37,7 @@ body {
   flex-grow: 1;
   display: flex;
   align-items: center;
+
 }
 
 .header .search-bar select {
@@ -74,11 +76,12 @@ body {
   display: flex;
   align-items: center;
   font-size: 14px;
+  
 }
 .header .options > div {
   margin-left: 20px;
   text-align: center;
-  color: white;
+  color: black;
 }
 .header .options .flag img {
   margin-right: 5px;
@@ -166,4 +169,46 @@ body {
     max-width: 100%;
     margin-bottom: 10px;
   }
+}
+
+
+/* Search Bar Container */
+.input-container {
+  display: flex;
+  align-items: center;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  padding: 5px;
+  width: 300px; /* Adjust width as needed */
+  background-color: white;
+  overflow: hidden;
+}
+
+/* Search Input Field */
+.input-container input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 8px 10px;
+  font-size: 16px;
+}
+
+/* Search Button */
+.input-container button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+/* Search Icon */
+.search-icon {
+  width: 20px; /* Adjust size as needed */
+  height: 20px;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Hover Effect for Search Button */
+.input-container button:hover .search-icon {
+  transform: scale(1.1);
 }

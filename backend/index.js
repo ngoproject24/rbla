@@ -56,6 +56,9 @@ mongoose.connect("mongodb+srv://sivaranjanianbazhagan2003:ngo2024@cluster0.hr2b0
 //
 
 // Routes
+
+const addressRoutes = require('./routes/address');
+app.use('/api/address', addressRoutes);
 // Signup Route
 app.post('/signup', async (req, res) => {
     try {
