@@ -1,0 +1,104 @@
+/* Main Container */
+.customer-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding: 20px;
+  }
+  
+  /* Sidebar Styling */
+  .customer-container > .sidebar {
+    width: 250px;
+  }
+  
+  /* Customer Title Section */
+  .customer-title {
+    flex: 1;
+    max-width: 90%;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Page Title */
+  .customer-title h2 {
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50;
+  }
+  
+  /* Table Styling */
+  .customer-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Table Header */
+  .customer-table thead {
+    background-color: #007bff;
+    color: white;
+    text-align: left;
+  }
+  
+  .customer-table th {
+    padding: 14px;
+    font-weight: bold;
+  }
+  
+  /* Table Body */
+  .customer-table tbody tr {
+    border-bottom: 1px solid #ddd;
+    transition: background 0.2s ease-in-out;
+  }
+  
+  .customer-table tbody tr:last-child {
+    border-bottom: none;
+  }
+  
+  /* Table Cells */
+  .customer-table td {
+    padding: 14px;
+    text-align: left;
+    color: #555;
+  }
+  
+  /* Row Hover Effect */
+  .customer-table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .customer-container {
+      flex-direction: column;
+      padding: 10px;
+    }
+  
+    .customer-title {
+      width: 100%;
+    }
+  
+    .customer-table {
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .customer-title h2 {
+      font-size: 20px;
+    }
+  
+    .customer-table th,
+    .customer-table td {
+      padding: 10px;
+    }
+  }
+  

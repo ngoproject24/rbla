@@ -1,188 +1,192 @@
 import React, { useState } from "react";
 import "./AddProduct.css";
-import upload_area from "../Assets/upload_area.png"; // Ensure the path is correct
+import upload_area from "../Assets/upload_area.png";
+import Sidebar from "../Sidebar/Sidebar";
 
 const AddProduct = () => {
-  const [images, setImages] = useState([]);
+  // State for product details
   const [productDetails, setProductDetails] = useState({
     name: "",
     category: "blockprinting",
     price: "",
-    stock: "",
-    description: "",
-    sku: "",
-    tags: "",
     discount: "",
+    stock: "",
+    sku: "",
+    description: "",
   });
 
+  // State for images
+  const [images, setImages] = useState([]);
+
+  // Handle input changes
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
+    setProductDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+  };
+
+  // Handle image upload
   const imageHandler = (e) => {
     setImages([...e.target.files]);
   };
 
-  const changeHandler = (e) => {
-    setProductDetails({ ...productDetails, [e.target.name]: e.target.value });
-  };
-
-  const Add_Product = async () => {
-    try {
-      console.log(productDetails);
-      let responseData;
-      let product = productDetails;
-
-      let formData = new FormData();
-      images.forEach((image) => formData.append("product_images", image));
-
-      const uploadResponse = await fetch("http://localhost:4000/upload", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-        },
-        body: formData,
-      });
-
-      responseData = await uploadResponse.json();
-
-      if (responseData?.success) {
-        product.images = responseData.image_urls;
-
-        const addProductResponse = await fetch("http://localhost:4000/addproduct", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(product),
-        });
-
-        const addProductData = await addProductResponse.json();
-        addProductData?.success
-          ? alert("Product Added Successfully")
-          : alert("Product Addition Failed");
-      }
-    } catch (error) {
-      console.error("Error adding product:", error);
-    }
+  // Handle form submission
+  const Add_Product = () => {
+    console.log("Product Details:", productDetails);
+    console.log("Uploaded Images:", images);
+    alert("Product added successfully!");
+    // You can add API integration here to submit data
   };
 
   return (
-  <div>
-    
-    <div className="add-product">
-      
-      <h1 className="add-product-title">Add New Product</h1>
+    <div className="add-product-container">
+      <Sidebar />
+      <div className="add-product-form">
+        <h1 className="form-title">Add New Product</h1>
 
-      {/* Product Name */}
-      <div className="addproduct-itemfield">
-        <p>Product Name</p>
-        <input
-          value={productDetails.name}
-          onChange={changeHandler}
-          type="text"
-          name="name"
-          placeholder="Enter product name"
-        />
-      </div>
-
-      {/* Category */}
-      <div className="addproduct-itemfield">
-        <p>Category</p>
-        <select
-          value={productDetails.category}
-          onChange={changeHandler}
-          name="category"
-          className="add-product-selector"
+        <form
+          className="product-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            Add_Product();
+          }}
         >
-          <option value="blockprinting">Block Printing</option>
-          <option value="cupcoaster">Cup Coaster</option>
-          <option value="paperfiles">Paper Files</option>
-          <option value="bamboo">Bamboo Products</option>
-        </select>
-      </div>
+          <div className="form-grid">
+            {/* Product Name */}
+            <div className="form-group">
+              <label htmlFor="name">Product Name</label>
+              <input
+                id="name"
+                value={productDetails.name}
+                onChange={changeHandler}
+                type="text"
+                name="name"
+                placeholder="Enter product name"
+                required
+              />
+            </div>
 
-      {/* Price and Discount */}
-      <div className="addproduct-price">
-        <div className="addproduct-itemfield">
-          <p>Price</p>
-          <input
-            value={productDetails.price}
-            onChange={changeHandler}
-            type="number"
-            name="price"
-            placeholder="Enter price"
-          />
-        </div>
-        <div className="addproduct-itemfield">
-          <p>Discount (%)</p>
-          <input
-            value={productDetails.discount}
-            onChange={changeHandler}
-            type="number"
-            name="discount"
-            placeholder="Enter discount percentage"
-          />
-        </div>
-      </div>
+            {/* Category */}
+            <div className="form-group">
+              <label htmlFor="category">Category</label>
+              <select
+                id="category"
+                value={productDetails.category}
+                onChange={changeHandler}
+                name="category"
+                className="form-select"
+              >
+                <option value="blockprinting">Block Printing</option>
+                <option value="cupcoaster">Cup Coaster</option>
+                <option value="paperfiles">Paper Files</option>
+                <option value="bamboo">Bamboo Products</option>
+              </select>
+            </div>
 
-      {/* Stock Quantity */}
-      <div className="addproduct-itemfield">
-        <p>Stock Quantity</p>
-        <input
-          value={productDetails.stock}
-          onChange={changeHandler}
-          type="number"
-          name="stock"
-          placeholder="Enter stock quantity"
-        />
-      </div>
+            {/* Price and Discount */}
+            <div className="form-group">
+              <label htmlFor="price">Price</label>
+              <input
+                id="price"
+                value={productDetails.price}
+                onChange={changeHandler}
+                type="number"
+                name="price"
+                placeholder="Enter price"
+                required
+              />
+            </div>
 
-      {/* SKU */}
-      <div className="addproduct-itemfield">
-        <p>SKU/ID</p>
-        <input
-          value={productDetails.sku}
-          onChange={changeHandler}
-          type="text"
-          name="sku"
-          placeholder="Enter product SKU or ID"
-        />
-      </div>
+            <div className="form-group">
+              <label htmlFor="discount">Discount (%)</label>
+              <input
+                id="discount"
+                value={productDetails.discount}
+                onChange={changeHandler}
+                type="number"
+                name="discount"
+                placeholder="Enter discount"
+                min="0"
+                max="100"
+              />
+            </div>
 
-      {/* Description */}
-      <div className="addproduct-itemfield">
-        <p>Description</p>
-        <textarea
-          value={productDetails.description}
-          onChange={changeHandler}
-          name="description"
-          placeholder="Enter product description"
-          rows="4"
-        />
-      </div>
+            {/* Stock Quantity */}
+            <div className="form-group">
+              <label htmlFor="stock">Stock Quantity</label>
+              <input
+                id="stock"
+                value={productDetails.stock}
+                onChange={changeHandler}
+                type="number"
+                name="stock"
+                placeholder="Enter stock quantity"
+                required
+              />
+            </div>
 
-      {/* Images */}
-      <div className="addproduct-itemfield">
-        <label htmlFor="file-input" className="file-input-label">
-          <img
-            src={images.length > 0 ? URL.createObjectURL(images[0]) : upload_area}
-            className="addproduct-thumbnail-img"
-            alt="Upload Thumbnail"
-          />
-        </label>
-        <input
-          onChange={imageHandler}
-          type="file"
-          name="images"
-          id="file-input"
-          hidden
-          multiple
-        />
-      </div>
+            {/* SKU */}
+            <div className="form-group">
+              <label htmlFor="sku">SKU/ID</label>
+              <input
+                id="sku"
+                value={productDetails.sku}
+                onChange={changeHandler}
+                type="text"
+                name="sku"
+                placeholder="Enter product SKU"
+                required
+              />
+            </div>
 
-      {/* Submit Button */}
-      <button onClick={Add_Product} className="addproduct-btn">
-        Add Product
-      </button>
-    </div>
+            {/* Description */}
+            <div className="form-group full-width">
+              <label htmlFor="description">Description</label>
+              <textarea
+                id="description"
+                value={productDetails.description}
+                onChange={changeHandler}
+                name="description"
+                placeholder="Enter product description"
+                rows="4"
+                required
+              />
+            </div>
+
+            {/* Image Upload */}
+            <div className="form-group full-width image-upload">
+              <label htmlFor="file-input">Product Images</label>
+              <div className="upload-container">
+                <label htmlFor="file-input" className="upload-area">
+                  <img
+                    src={images.length > 0 ? URL.createObjectURL(images[0]) : upload_area}
+                    className="upload-preview"
+                    alt="Upload preview"
+                  />
+                  <div className="upload-overlay">
+                    <p>{images.length > 0 ? `${images.length} files selected` : "Click to upload"}</p>
+                    <span>Drag & drop or click to choose files</span>
+                  </div>
+                </label>
+                <input
+                  onChange={imageHandler}
+                  type="file"
+                  name="images"
+                  id="file-input"
+                  multiple
+                  accept="image/*"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" className="submit-btn">
+            Add Product
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

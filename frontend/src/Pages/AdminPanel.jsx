@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./AdminPanel.css";
+import Sidebar from "../Components/Sidebar/Sidebar";
 
 const AdminPanel = () => {
   const [marqueeMessage, setMarqueeMessage] = useState("");
@@ -47,6 +48,8 @@ const AdminPanel = () => {
   };
 
   return (
+    <div className="admin-container">
+    <Sidebar/>
     <div className="admin-panel">
       <h2>Update Marquee Message</h2>
       <form onSubmit={handleSubmit}>
@@ -70,6 +73,7 @@ const AdminPanel = () => {
         <p>Preview:</p>
         <div className="preview-box">{marqueeMessage || "Enter a message..."}</div>
       </div>
+    </div>
     </div>
   );
 };

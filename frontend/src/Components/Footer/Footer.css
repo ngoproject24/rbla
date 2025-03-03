@@ -48,7 +48,7 @@
 }
 
 .footer-column ul li a:hover {
-  color: rgb(216, 132, 241); /* Lighter yellow on hover */
+  color: rgb(192, 9, 247); /* Lighter yellow on hover */
   text-decoration: underline;
 }
 
@@ -79,7 +79,7 @@
 }
 
 .footer-country button:hover {
-  background-color:  rgb(216, 132, 241); /* Lighter yellow on hover */
+  background-color: rgb(247, 9, 9); /* Lighter yellow on hover */
   border-color: black; /* Lighter yellow border */
 }
 

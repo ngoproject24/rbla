@@ -41,6 +41,8 @@ import AdminPanel from "./Pages/AdminPanel";
 import PaymentPage from './Pages/PaymentPage';
 import Marquee from './Pages/Marquee';
 import Chatbot from './Components/Chatbot/Chatbot';
+import Customer from './Components/Customer/Customer';
+import CheckoutModal from './Pages/CheckoutModal';
 
 
 
@@ -95,6 +97,8 @@ const App = () => {
               <Route path="/UserProfile" element={<UserProfile />} />
               <Route path="/MyOrders" element={<MyOrders />} />
               <Route path="/PaymentPage" element={<PaymentPage />} />
+              <Route path="/customer" element={<Customer/>}/>
+              <Route path="/checkout" element={<CheckoutModal/>}/>
 
               {/* Admin Panel Route */}
               <Route path="/adminpanel" element={<AdminPanel addUnit={addUnit} />} />
