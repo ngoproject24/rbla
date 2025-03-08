@@ -1,0 +1,75 @@
+.delivery-section {
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .form-group-row {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .form-group-row .form-group {
+    flex: 1;
+  }
+  
+  /* Navigation Button Container */
+  .nav-button-container {
+    display: flex;
+    justify-content: space-between; /* Positions buttons to left & right */
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  /* Navigation Button Styling */
+  .nav-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .nav-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+  }
+  
+  .nav-button:active {
+    transform: scale(0.95);
+  }
+  
+  .required-symbol {
+    color: red;
+    font-weight: bold;
+  }
+  
