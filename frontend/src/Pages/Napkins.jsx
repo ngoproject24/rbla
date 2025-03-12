@@ -6,8 +6,12 @@ import N3_img from '../Components/Assets/N3.png';
 import N4_img from '../Components/Assets/N4.png';
 import N5_img from '../Components/Assets/N5.png';
 import './Napkins.css';
-import { WishlistContext } from '../WishlistContext'; // Wishlist context
-import { CartContext } from '../CartContext'; // Cart context
+import { WishlistContext } from "../Context/WishlistContext";
+import { CartContext } from "../Context/CartContext";
+import Header from '../Components/Header/Header';
+import Marquee from './Marquee';
+import Footer from '../Components/Footer/Footer';
+import Chatbot from '../Components/Chatbot/Chatbot';
 
 
 const napkins = [
@@ -33,7 +37,8 @@ const Napkins = () => {
 
   return (
     <div>
-     
+     <Header/>
+     <Marquee/>
       <h1>Welcome to the Napkins category page!</h1>
       <div className="container">
         {napkins.map((napkin) => (
@@ -65,7 +70,8 @@ const Napkins = () => {
           </div>
         ))}
       </div>
-      
+      <Footer/>
+      <Chatbot/>
     </div>
   );
 };

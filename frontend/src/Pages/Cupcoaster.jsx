@@ -6,9 +6,13 @@ import C3_img from '../Components/Assets/C3.png';
 import C4_img from '../Components/Assets/C4.png';
 import C5_img from '../Components/Assets/C5.png';
 import './Cupcoaster.css';
-import { WishlistContext } from '../WishlistContext'; // Wishlist context
-import { CartContext } from '../CartContext'; // Cart context
+import { WishlistContext } from "../Context/WishlistContext";
+import { CartContext } from "../Context/CartContext";
 import { Link } from 'react-router-dom';
+import Header from '../Components/Header/Header';
+import Marquee from './Marquee';
+import Footer from '../Components/Footer/Footer';
+import Chatbot from '../Components/Chatbot/Chatbot';
 
 const Cupcoaster = () => {
   // Access context values
@@ -44,6 +48,8 @@ const Cupcoaster = () => {
 
   return (
     <div>
+      <Header/>
+      <Marquee/>
       <h1>Welcome to the Cup Coasters category page!</h1>
       <div className="container">
         {cupcoaster.map((coaster) => (
@@ -82,6 +88,8 @@ const Cupcoaster = () => {
         <center>Click Here</center> 
         <span className="tooltip">Customize Your Own Product</span>
       </Link>
+      <Footer/>
+      <Chatbot/>
     </div>
   );
 };

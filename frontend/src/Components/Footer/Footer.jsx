@@ -30,12 +30,13 @@ const Footer = () => {
         <div className="footer-column">
           <h4>Let Us Help You</h4>
           <ul>
-          <li><Link to="/AccountPage">Your Account</Link></li>
+          <li><Link to="/UserProfile">Your Account</Link></li>
             <li><a href="#">Returns Centre</a></li>
             <li><a href="#">Recalls and Product Safety Alerts</a></li>
             <li><a href="#">100% Purchase Protection</a></li>
             <li><Link to="/ContactUs">Help</Link></li>
-            <li><Link to="/PaymentPage">pay</Link></li>
+            <li><Link to="/OrderSummary">order</Link></li>
+            <li><Link to="/admin">Admin</Link></li>
           </ul>
         </div>
       </div>

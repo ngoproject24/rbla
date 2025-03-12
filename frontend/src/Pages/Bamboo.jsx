@@ -1,9 +1,12 @@
 import React, { useContext,useEffect,useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'; // For navigation
 import './Bamboo.css';
-import { WishlistContext } from '../WishlistContext'; // Wishlist context
-import { CartContext } from '../CartContext'; // Cart context
+import { WishlistContext } from "../Context/WishlistContext";
+import { CartContext } from "../Context/CartContext";
 import Header from '../Components/Header/Header'; // Corrected import path
+import Marquee from './Marquee';
+import Footer from '../Components/Footer/Footer';
+import Chatbot from '../Components/Chatbot/Chatbot';
 
 /*const bedsheets = [
   { id: 1, name: 'Floral Bedsheet', image: B1_img, new_price: 50.0, old_price: 65.0 },
@@ -53,6 +56,8 @@ const Bamboo = () => {
 
   return (
     <div className="bamboo-container">
+      <Header/>
+      <Marquee/>
   
       <h1>Welcome to the bamboo Collection!</h1>
 
@@ -131,6 +136,8 @@ const Bamboo = () => {
           </div>
         </div>
       </div>
+      <Footer/>
+      <Chatbot/>
     </div>
   );
 };

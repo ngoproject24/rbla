@@ -1,5 +1,6 @@
 /* Footer Styles */
 .footer {
+  width: 100vw;
   background-color: #232f3e; /* Light yellow background */
   color: #f57f17;  /* Dark yellow text */
   font-family: Arial, sans-serif;

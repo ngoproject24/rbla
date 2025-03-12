@@ -1,9 +1,12 @@
 import React, { useContext,useEffect,useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'; // For navigation
 import './Bags.css';
-import { WishlistContext } from '../WishlistContext'; // Wishlist context
-import { CartContext } from '../CartContext'; // Cart context
+import { WishlistContext } from "../Context/WishlistContext";
+import { CartContext } from "../Context/CartContext";
 import Header from '../Components/Header/Header'; // Corrected import path
+import Marquee from './Marquee';
+import Footer from '../Components/Footer/Footer';
+import Chatbot from '../Components/Chatbot/Chatbot';
 
 
 
@@ -46,6 +49,8 @@ const Bags = () => {
 
   return (
     <div className="bags-container">
+      <Header/>
+      <Marquee/>
    
 
       <h1>Welcome to the bags Collection!</h1>
@@ -125,6 +130,8 @@ const Bags = () => {
           </div>
         </div>
       </div>
+      <Footer/>
+      <Chatbot/>
     </div>
   );
 };

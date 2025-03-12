@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import "./Header.css";
 import logo from "../Assets/logo.png";
 import { Link } from "react-router-dom";
@@ -16,6 +16,7 @@ export const Header = () => {
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const { cartCount } = useContext(CartContext);
+  const searchContainerRef = useRef(null);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -86,36 +87,46 @@ export const Header = () => {
           <div>
             <ul>
               <li>
-                <Link to="/UpdateLocation">Update Location</Link>
+                <Link to="/UpdateLocation" style={{ color: "black" }}>Update Location</Link>
               </li>
             </ul>
           </div>
         </div>
 
         {/* Search Bar */}
-        <div className="input-container">
-          <input
-            type="text"
-            value={query}
-            onChange={handleInputChange}
-            placeholder="Search products..."
-          />
-          <button onClick={handleSearch}>
-            <img src={search} alt="Search Icon" className="search-icon" />
-          </button>
-
-          {/* Display search results */}
-          {searchResults.length > 0 && (
-            <div className="search-results">
-              <ul>
-                {searchResults.map((product) => (
-                  <li key={product._id}>
-                    <Link to={`/product/${product._id}`}>{product.name}</Link>
-                  </li>
-                ))}
-              </ul>
+        <div className="input-container" ref={searchContainerRef}>
+          <form onSubmit={handleSearch} className="search-form">
+            <div className="search-input-wrapper">
+              <input
+                type="text"
+                value={query}
+                onChange={handleInputChange}
+                placeholder="Search products..."
+                className="search-input"
+              />
+              <button type="submit" className="search-button">
+                <img src={search} alt="Search Icon" className="search-icon" />
+              </button>
             </div>
-          )}
+
+            {/* Display search results */}
+            {searchResults.length > 0 && (
+              <div className="search-results">
+                <ul>
+                  {searchResults.map((product) => (
+                    <li key={product._id} className="search-result-item">
+                      <Link
+                        to={`/product/${product._id}`}
+                        className="search-result-link"
+                      >
+                        {product.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </form>
         </div>
 
         <div className="options">
@@ -124,14 +135,14 @@ export const Header = () => {
           </div>
           <div>IND</div>
           <div>
-            <Link to="/login" style={{ color: "white" }}>
+            <Link to="/login" style={{ color: "black" }}>
               Hello, sign in
               <br />
               Account
             </Link>
           </div>
           <div>
-            <Link to="/ReturnOrder" style={{ color: "white" }}>
+            <Link to="/ReturnOrder" style={{ color: "black" }}>
               Returns
               <br />
               & Orders
@@ -143,7 +154,7 @@ export const Header = () => {
             </Link>
           </div>
           <div>
-            <Link to="/cart" style={{ color: "white" }}>
+            <Link to="/cart" style={{ color: "black" }}>
               <FontAwesomeIcon icon={faShoppingCart} /> Cart ({cartCount})
             </Link>
           </div>
@@ -152,11 +163,6 @@ export const Header = () => {
 
       {/* Navigation Links */}
       <ul className="nav-links">
-        <li>
-          <Link to="#">
-            <FontAwesomeIcon icon={faBars} /> All
-          </Link>
-        </li>
         <li>
           <Link to="/AboutPage">About Us</Link>
         </li>
@@ -180,10 +186,10 @@ export const Header = () => {
             </ul>
           )}
         </li>
-        <li><Link to="/admin">Admin</Link></li>
+        
         <li><Link to="/Gallery">Gallery</Link></li>
         <li><Link to="/ContactUs">Contact Us</Link></li>
-        <li><Link to="/adminpanel">UnitPage</Link></li>
+       
       </ul>
     </div>
   );

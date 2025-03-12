@@ -12,6 +12,10 @@ import about1 from "../Components/Assets/about1.png";
 import about3 from "../Components/Assets/about3.png";
 import vaalogo from "../Components/Assets/vaalogo.png";
 import sirlogo from "../Components/Assets/sirlogo.png";
+import Header from "../Components/Header/Header";
+import Footer from "../Components/Footer/Footer";
+import Marquee from "./Marquee";
+import Chatbot from "../Components/Chatbot/Chatbot";
 
 const AboutPage = () => {
   const navigate = useNavigate();
@@ -36,6 +40,8 @@ const AboutPage = () => {
 
   return (
     <div className="about-page">
+      <Header/>
+      <Marquee/>
       {/* Header */}
       <header className="about-header">
         <h1>SURVIVOR PRODUCTS</h1>
@@ -125,6 +131,8 @@ const AboutPage = () => {
       <footer className="about-footer">
         <p>&copy; 2025 Your Company. All rights reserved.</p>
       </footer>
+      <Footer/>
+      <Chatbot/>
     </div>
   );
 };

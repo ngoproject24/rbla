@@ -560,12 +560,12 @@ app.get('/allproducts', async (req, res) => {
       res.status(500).json({ success: false, message: 'Internal Server Error', error: error.message });
     }
   });
-  app.post('/cartss/add', authenticateToken, async (req, res) => {
+  app.post('/cart/add', authenticateToken, async (req, res) => {
     try {
       const { productid, quantity,productName,new_price ,images} = req.body;
       const userid = req.user.id; 
       console.log(userid);
-      
+      console.log(req.body);
       const product = await Product.findOne({ productid: productid });
   
       if (!product) {
@@ -601,7 +601,7 @@ app.get('/allproducts', async (req, res) => {
     }
   });
   
-  app.post('/cartss/remove', authenticateToken, async (req, res) => {
+  app.post('/cart/remove', authenticateToken, async (req, res) => {
     try {
       const { productid } = req.body;  // Product ID is a number now
       const userid = req.user.id;

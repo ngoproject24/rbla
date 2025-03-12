@@ -24,7 +24,7 @@ export const CartProvider = ({ children }) => {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/api/cartss/get", {
+      const response = await fetch("http://localhost:4000/cart/get", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +55,7 @@ export const CartProvider = ({ children }) => {
     // Check if item already in cart
     const existingItem = cart.find((cartItem) => cartItem.productid === item.productid);
     if (existingItem) {
-      alert(`${item.productName} is already in your cart!`);
+      alert(`${item.name} is already in your cart!`);
       return;
     }
 
@@ -67,7 +67,7 @@ export const CartProvider = ({ children }) => {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/api/cartss/add", {
+      const response = await fetch("http://localhost:4000/cart/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,7 +77,7 @@ export const CartProvider = ({ children }) => {
           productid: item.productid,
           quantity: 1,
           images: item.images,
-          productName: item.productName,
+          productName: item.name,
           new_price: item.new_price,
           stock: item.stock,
         }),
@@ -85,7 +85,7 @@ export const CartProvider = ({ children }) => {
 
       const data = await response.json();
       if (response.ok) {
-        alert(`${item.productName} added to cart!`);
+        alert(`${item.name} added to cart!`);
         setCart((prevCart) => [...prevCart, { ...item, quantity: 1 }]);
       } else {
         setError(data.message || "Error adding product to cart.");
@@ -106,7 +106,7 @@ export const CartProvider = ({ children }) => {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/api/cartss/remove", {
+      const response = await fetch("http://localhost:4000/cart/remove", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -154,7 +154,7 @@ export const CartProvider = ({ children }) => {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/api/cartss/update", {
+      const response = await fetch("http://localhost:4000/cart/update", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

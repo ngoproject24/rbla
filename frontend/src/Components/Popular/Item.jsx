@@ -1,8 +1,11 @@
 import React from 'react';
 import './Item.css'; // Optional CSS for styling
+import Footer from '../Footer/Footer';
+import Chatbot from '../Chatbot/Chatbot';
 
 const Item = ({ id, name, image, new_price, old_price }) => {
   return (
+   
     <div
       className="item"
       data-id={id}
@@ -23,7 +26,10 @@ const Item = ({ id, name, image, new_price, old_price }) => {
         <span className="item-price-new">${new_price}</span>
         <span className="item-price-old">${old_price}</span>
       </div>
+      
     </div>
+    
+    
   );
 };
 

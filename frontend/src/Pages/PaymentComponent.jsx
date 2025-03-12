@@ -6,14 +6,13 @@ import visaLogo from '../Components/Assets/visa.png';
 import MasterCardLogo from '../Components/Assets/Mastercard.png';
 import rupayLogo from '../Components/Assets/rupay.png';
 import paytmLogo from '../Components/Assets/paytm.png';
-import OrderSummary from '../Components/ordersummary/OrderSummary';
+
 
 const PaymentComponent = () => {
   const [selectedPayment, setSelectedPayment] = useState('payu');
 
   return (
-    <>
-      <OrderSummary />
+ 
       <div className="payment-container">
         <h2>Payment</h2>
         <p>All transactions are secure and encrypted.</p>
@@ -66,7 +65,7 @@ const PaymentComponent = () => {
         {/* Pay Now Button */}
         <button className="pay-now-button">Pay now</button>
       </div>
-    </>
+    
   );
 };
 

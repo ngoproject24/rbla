@@ -28,8 +28,7 @@ export default function AccountPage({ userProfileData }) {
   }, [userProfileData]);
 
   return (
-    <>
-      <OrderSummary />
+    
       <div className="account-container">
         <h2>Account Details</h2>
         <div className="account-info">
@@ -57,6 +56,6 @@ export default function AccountPage({ userProfileData }) {
           </button>
         </div>
       </div>
-    </>
+    
   );
 }

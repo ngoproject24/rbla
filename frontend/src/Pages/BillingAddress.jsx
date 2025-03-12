@@ -40,7 +40,7 @@ const BillingAddress = () => {
   };
 
   return (
-    <><OrderSummary/>
+    
     <div className="billing-address">
       <h3>Billing Address</h3>
       <div className="billing-options">
@@ -128,7 +128,7 @@ const BillingAddress = () => {
         </form>
       )}
     </div>
-    </>
+   
   );
 };
 

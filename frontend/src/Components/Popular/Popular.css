@@ -1,42 +1,97 @@
+/* General Styles */
 .popular {
+  text-align: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+/* Section Title */
+.popular h1 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Divider */
+.popular hr {
+  width: 100px;
+  height: 3px;
+  background-color: #ff6600;
+  border: none;
+  margin: 10px auto;
+}
+
+/* Items Grid */
+.popular-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+  background-color: white;
+}
+
+/* Item Card */
+.popular-item-card {
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  text-align: center;
+}
+
+.popular-item-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Item Image */
+.popular-item-image {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+/* Item Name */
+.popular-item-name {
+  font-size: 18px;
+  color: #222;
+  margin-top: 10px;
+  text-transform: capitalize;
+}
+
+/* Price Section */
+.popular-item-prices {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 10px;
-  height: 90vh;
+  margin-top: 5px;
 }
 
-.popular h1 {
-  color: #171717;
-  font-size: 50px;
-  font-weight: 600;
+/* New Price */
+.new-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ff6600;
 }
 
-.popular hr {
-  width: 200px;
-  height: 6px;
-  border-radius: 10px;
-  background: #252525;
+/* Old Price */
+.old-price {
+  font-size: 14px;
+  color: #777;
+  text-decoration: line-through;
 }
 
-.popular-item {
-  margin-top: 50px;
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap; /* Ensures responsiveness for smaller screens */
-  justify-content: center;
-}
+/* Responsive */
+@media (max-width: 768px) {
+  .popular-items {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
 
-.popular-item img {
-  max-width: 200px; /* Limits the maximum width */
-  max-height: 200px; /* Limits the maximum height */
-  object-fit: cover; /* Ensures images are cropped neatly without distortion */
-  border-radius: 10px; /* Adds smooth rounded edges */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Adds a soft shadow for better aesthetics */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.popular-item img:hover {
-  transform: scale(1.05); /* Slight zoom on hover for interactivity */
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3); /* Adds a stronger shadow when hovering */
+  .popular-item-image {
+    height: 150px;
+  }
 }

@@ -6,7 +6,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 export const Delivery = () => {
   return (
     <div>
-      <OrderSummary />
+      
       <h2>Delivery</h2> {/* Delivery Section */}
       <section id="delivery" className="form-group-section delivery-section">
         <div className="form-group">

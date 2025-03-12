@@ -23,7 +23,7 @@ const BillingAddress = () => {
   const [sameAsShipping, setSameAsShipping] = useState(true);
 
   return (
-    
+
       <div className="billing-options">
         <label className={`billing-option ${sameAsShipping ? "selected" : ""}`}>
           <input type="radio" name="billing" checked={sameAsShipping} onChange={() => setSameAsShipping(true)} />
@@ -34,7 +34,7 @@ const BillingAddress = () => {
           <input type="radio" name="billing" checked={!sameAsShipping} onChange={() => setSameAsShipping(false)} />
           <span>Use a different billing address</span>
         </label>
-      
+
 
       {!sameAsShipping && (
         <form className="billing-form">
@@ -94,11 +94,11 @@ const BillingAddress = () => {
 };
 
 const ShippingMethod = () => (
-  
+
     <div className="shipping-box">
       <p>Enter your shipping address to view available shipping methods.</p>
     </div>
-  
+
 );
 
 const Delivery = () => (  
@@ -111,7 +111,7 @@ const Delivery = () => (
               <option>India</option>
             </select>
           </div>
-          
+
           <div className="form-group-row">
             <div className="form-group">
               <label htmlFor="first-name">First name <span className="required-symbol">*</span></label>
@@ -124,19 +124,19 @@ const Delivery = () => (
               <input id="last-name" type="text" required />
             </div>
           </div>
-  
+
           <div className="form-group">
             <label htmlFor="address">
               Address <span className="required-symbol">*</span>
             </label>
             <input id="address" type="text" required />
           </div>
-  
+
           <div className="form-group">
             <label htmlFor="apartment">Apartment, suite, etc. (optional)</label>
             <input id="apartment" type="text" />
           </div>
-  
+
           <div className="form-group-row">
             <div className="form-group">
               <label htmlFor="city">
@@ -159,7 +159,7 @@ const Delivery = () => (
               <input id="pin-code" type="text" required />
             </div>
           </div>
-  
+
           <div className="form-group">
             <label htmlFor="phone">
               Phone <span className="required-symbol">*</span>
@@ -168,7 +168,7 @@ const Delivery = () => (
           </div>
         </section>
 
-      
+
 
 );
 
@@ -226,7 +226,7 @@ export default function OrderProcess({ userProfileData }) {
         {currentStep === 4 && <ShippingMethod />}
         {currentStep === 5 && (
           <div className="payment-container">
-            
+
             <center><p>All transactions are secure and encrypted.</p></center>
             <label className={`payment-option ${selectedPayment === 'payu' ? 'selected' : ''}`}>
               <input type="radio" name="payment" value="payu" checked={selectedPayment === 'payu'} onChange={() => setSelectedPayment('payu')} />

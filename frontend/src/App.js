@@ -29,8 +29,6 @@ import Gallery from './Pages/Gallery';
 import Vaagai from './Pages/vaagai';
 import Varnam from './Pages/varnam';
 import Siragugal from './Pages/siragugal';
-import Header from './Components/Header/Header';
-import Footer from './Components/Footer/Footer';
 import UpdateLocation from "./Pages/Location";
 import ReturnsOrders from './Pages/ReturnsOrders';
 import UserProfile from './Pages/UserProfile';
@@ -38,11 +36,11 @@ import { WishlistProvider } from "./Context/WishlistContext";
 import { CartProvider } from "./Context/CartContext";
 import MyOrders from './Pages/MyOrders';
 import AdminPanel from "./Pages/AdminPanel"; 
-import PaymentPage from './Pages/PaymentPage';
-import Marquee from './Pages/Marquee';
-import Chatbot from './Components/Chatbot/Chatbot';
 import Customer from './Components/Customer/Customer';
 import CheckoutModal from './Pages/CheckoutModal';
+import OrderProcess from './Components/ordersummary/OrderSummary';
+import PaymentComponent from './Pages/PaymentComponent';
+import BillingAddress from './Pages/BillingAddress';
 
 
 
@@ -60,9 +58,7 @@ const App = () => {
       <WishlistProvider>
         <CartProvider>
           <BrowserRouter>
-            <Header />
-            <Marquee />
-
+            
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/wishlist" element={<Wishlist />} />
@@ -96,16 +92,17 @@ const App = () => {
               <Route path="/ReturnOrder" element={<ReturnsOrders />} />
               <Route path="/UserProfile" element={<UserProfile />} />
               <Route path="/MyOrders" element={<MyOrders />} />
-              <Route path="/PaymentPage" element={<PaymentPage />} />
               <Route path="/customer" element={<Customer/>}/>
               <Route path="/checkout" element={<CheckoutModal/>}/>
+              <Route path="/OrderSummary" element={<OrderProcess/>}/>
+              <Route path="/PaymentComponent" element={<PaymentComponent/>}/>
+              <Route path="/BillingAddress" element={<BillingAddress/>}/>
 
               {/* Admin Panel Route */}
               <Route path="/adminpanel" element={<AdminPanel addUnit={addUnit} />} />
             </Routes>
             
-            <Footer />
-            <Chatbot />
+            
           </BrowserRouter>
         </CartProvider>
       </WishlistProvider>

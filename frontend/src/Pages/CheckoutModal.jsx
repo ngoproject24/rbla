@@ -59,7 +59,7 @@ const CheckoutModal = ({ cart, calculateTotal, handleCheckoutSuccess, setError }
   return (
     <>
       <button className="checkout-btn" onClick={() => setIsOpen(true)}>
-        Check out
+        Check
       </button>
 
       {isOpen && (
