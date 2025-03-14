@@ -15,6 +15,14 @@ const Product = require('./models/ProductS');
 const Order = require('./models/Order');
 const Users = require('./models/Users');
 app.use(express.json());
+
+//review
+const review = require('./routes/admin/review');
+app.use('/api/review', review);
+
+const reviewRoutes = require('./routes/reviewRoutes');
+app.use('/api/reviews', reviewRoutes);
+
 app.use(cors());
 /*
 In your backend (Express setup)
@@ -54,8 +62,6 @@ mongoose.connect("mongodb+srv://sivaranjanianbazhagan2003:ngo2024@cluster0.hr2b0
   .catch(err => console.error("MongoDB connection error:", err));
 
 //
-
-// Routes
 
 const addressRoutes = require('./routes/address');
 app.use('/api/address', addressRoutes);
@@ -717,6 +723,118 @@ app.post('/search', async (req, res) => {
     res.json(products);
   } catch (error) {
     console.error('Error fetching products:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+// POST - Create a new review
+app.post('/review', authenticateToken, async (req, res) => {
+  const { productid, rating, reviewText } = req.body;
+  const userId = req.user.id;
+
+  try {
+    const order = await Order.findOne({
+      userid: userId,
+      'items.productid': productid,
+      orderStatus: 'Delivered',
+    });
+
+    if (!order) {
+      return res.status(400).json({ message: 'You must purchase this product before reviewing it.' });
+    }
+
+    const newReview = new Review({
+      userid: userId,
+      productid: productid,
+      rating: rating,
+      reviewText: reviewText,
+    });
+
+    await newReview.save();
+    res.status(201).json({ message: 'Review posted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// GET - Check if the user has purchased the product
+app.get('review/has-purchased/:productid', authenticateToken, async (req, res) => {
+  const { productid } = req.params;
+  const userId = req.user.id;
+
+  try {
+    const order = await Order.findOne({
+      userid: userId,
+      'items.productid': productid,
+      orderStatus: 'Delivered',
+    });
+
+    if (order) {
+      return res.status(200).json({ hasPurchased: true });
+    } else {
+      return res.status(200).json({ hasPurchased: false });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// GET - Fetch reviews for a product
+app.get('review/:productid', async (req, res) => {
+  const { productid } = req.params;
+  const { rating, sort } = req.query;
+
+  try {
+    let query = { productid: productid };
+
+    // Apply rating filter if provided
+    if (rating) {
+      const minRating = parseInt(rating);
+      if (minRating < 1 || minRating > 5) {
+        return res.status(400).json({ message: 'Rating filter must be between 1 and 5.' });
+      }
+      query.rating = { $gte: minRating };
+    }
+
+    // Sorting logic
+    let sortOrder = {};
+    if (sort) {
+      if (sort === 'desc') {
+        sortOrder = { rating: -1 };
+      } else if (sort === 'asc') {
+        sortOrder = { rating: 1 };
+      } else {
+        return res.status(400).json({ message: 'Sort must be "asc" or "desc".' });
+      }
+    } else {
+      sortOrder = { createdAt: -1 };
+    }
+
+    // Fetch reviews
+    const reviews = await Review.find(query)
+      .populate('userid', 'name email avatar')
+      .sort(sortOrder);
+
+    if (reviews.length === 0) {
+      return res.status(200).json({
+        reviews: [],
+        reviewStats: {
+          averageRating: "0.00",
+          numberOfReviews: 0,
+        }
+      });
+    }
+
+    const avgRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
+    const reviewStats = {
+      averageRating: avgRating.toFixed(2),
+      numberOfReviews: reviews.length,
+    };
+
+    res.status(200).json({ reviews, reviewStats });
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });

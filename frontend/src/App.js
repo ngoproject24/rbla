@@ -41,6 +41,7 @@ import CheckoutModal from './Pages/CheckoutModal';
 import OrderProcess from './Components/ordersummary/OrderSummary';
 import PaymentComponent from './Pages/PaymentComponent';
 import BillingAddress from './Pages/BillingAddress';
+import ReviewSummary from './Components/ReviewSummary/ReviewSummary';
 
 
 
@@ -97,6 +98,7 @@ const App = () => {
               <Route path="/OrderSummary" element={<OrderProcess/>}/>
               <Route path="/PaymentComponent" element={<PaymentComponent/>}/>
               <Route path="/BillingAddress" element={<BillingAddress/>}/>
+              <Route path="/ReviewSummary" element={<ReviewSummary/>}/>
 
               {/* Admin Panel Route */}
               <Route path="/adminpanel" element={<AdminPanel addUnit={addUnit} />} />

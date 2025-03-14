@@ -1,174 +1,127 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import './ProductDetails.css';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import "./ProductDetails.css";
+import ReviewSummary from "../Components/ReviewSummary/ReviewSummary";
 
-import T1_img from '../Components/Assets/T1.png';
-import T2_img from '../Components/Assets/T2.png';
-import T3_img from '../Components/Assets/T3.png';
-import T4_img from '../Components/Assets/T4.png';
-import T5_img from '../Components/Assets/T5.png';
-import tt_img from '../Components/Assets/tt.png';
-import wt_img from '../Components/Assets/wt.png';
-
-
-const towels = [
-  {
-    id: 1,
-    name: 'Rose printed towel',
-    images: [T1_img, T2_img, T3_img, T4_img, T5_img],
-    new_price: 130.0,
-    old_price: 80.0,
-  },
-  {
-    id: 2,
-    name: 'Blue leaf towel',
-    images: [T2_img, T3_img, T4_img, T5_img, T1_img],
-    new_price: 130.0,
-    old_price: 80.0,
-  },
-  {
-    id: 3,
-    name: 'Brown cotton towel',
-    images: [T3_img, T4_img, T5_img, T1_img, T2_img],
-    new_price: 130.0,
-    old_price: 80.0,
-  },
-  {
-    id: 4,
-    name: 'Multi circle cotton towel',
-    images: [T4_img, T5_img, T1_img, T2_img, T3_img],
-    new_price: 130.0,
-    old_price: 80.0,
-  },
-  {
-    id: 5,
-    name: 'Baby penguin towel',
-    images: [T5_img, T1_img, T2_img, wt_img, tt_img],
-    new_price: 130.0,
-    old_price: 80.0,
-  },
-];
-
-const ProductDetails = () => {
+const ProductDetail = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const product = towels.find((towel) => towel.id === parseInt(id));
-
-  const [mainImage, setMainImage] = useState(product?.images[0]);
+  const productId = Number(id);
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [mainImage, setMainImage] = useState("");
+  const [category, setCategory] = useState("Adult"); // Default category
+  const [setOption, setSetOption] = useState("Single"); // Default set
   const [quantity, setQuantity] = useState(1);
-  const [size, setSize] = useState('2.5 x 5');
-  const [printedSide, setPrintedSide] = useState('Single Side');
 
+  // Fetch product data
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/products/${productId}`);
+        if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+        const data = await response.json();
+
+        setMainImage(data.images?.length ? data.images[0] : "default-image-url");
+        setProduct(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [productId]);
+
+  // Calculate total price
   const calculateTotalPrice = () => {
-    const basePrice = product.new_price;
-    const sizeMultiplier = size === '2.5 x 5' ? 1 : size === '3 x 6' ? 1.2 : 1.5; // Example multipliers
-    const sideMultiplier = printedSide === 'Single Side' ? 1 : 1.5;
-    return (basePrice * sizeMultiplier * sideMultiplier * quantity).toFixed(2);
+    if (!product) return "0.00";
+    const basePrice = product.new_price || 0;
+    const categoryMultiplier = category === "Adult" ? 1 : 0.8;
+    const setMultiplier = setOption === "Single" ? 1 : 2;
+    return (basePrice * categoryMultiplier * setMultiplier * quantity).toFixed(2);
   };
 
-  const handleAddToCart = () => {
-    console.log(`Added ${product.name} to cart with quantity ${quantity}`);
-    navigate('/cart');
-  };
-
-  if (!product) {
-    return <div>Product not found!</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!product) return <div>Product not found!</div>;
 
   return (
     <div className="product-details">
+      {/* Left Section - Image Gallery */}
       <div className="image-gallery">
         <div className="main-image-container">
           <img src={mainImage} alt={product.name} className="main-image" />
         </div>
-        <div className="thumbnails">
-          {product.images.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt={`Thumbnail ${index + 1}`}
-              className="thumbnail"
-              onClick={() => setMainImage(image)}
-              role="button"
-              aria-label={`Thumbnail ${index + 1}`}
-            />
-          ))}
-        </div>
+        
       </div>
 
+      {/* Right Section - Product Info */}
       <div className="product-info">
         <h1>{product.name}</h1>
+        <p className="price">
+          <strong>₹{product.new_price.toFixed(2)}</strong>
+          <span className="old-price">₹{product.old_price.toFixed(2)}</span>
+          <span className="discount">
+            (Save {((1 - product.new_price / product.old_price) * 100).toFixed(0)}%)
+          </span>
+        </p>
+        <p className="description">
+          <strong>Description:</strong> {product.description}
+        </p>
 
-        <div className="price-calculator">
-          <h2>Price Calculator</h2>
-          <div className="calculator-row">
-            <label>Size (W x H):</label>
-            <select value={size} onChange={(e) => setSize(e.target.value)}>
-              <option value="2.5 x 5">Ft (2.5 x 5)</option>
-              <option value="3 x 6">Ft (3 x 6)</option>
-              <option value="4 x 8">Ft (4 x 8)</option>
-            </select>
-          </div>
-          <div className="calculator-row">
-            <label>Quantity:</label>
-            <input
-              type="number"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              min="1"
-            />
-          </div>
-          <div className="calculator-row">
-            <label>Printed Side:</label>
-            <select value={printedSide} onChange={(e) => setPrintedSide(e.target.value)}>
-              <option value="Single Side">Single Side</option>
-              <option value="Double Side">Double Side</option>
-            </select>
-          </div>
-          <div className="calculator-row">
-            <strong>Total (Incl. of all Taxes):</strong>
-            <span>₹ {calculateTotalPrice()}</span>
-          </div>
+        {/* Category Selector */}
+        <div className="category">
+          <label>Category:</label>
+          <select value={category} onChange={(e) => setCategory(e.target.value)}>
+            <option value="Adult">Adult</option>
+            <option value="Child">Child</option>
+          </select>
         </div>
 
-        <button className="add-to-cart-btn" onClick={handleAddToCart}>
-          Add to Cart
-        </button>
-
-        {/* New Design Steps Section */}
-        <div className="design-steps">
-          <h3>Next Step for Design</h3>
-          <div className="design-options">
-            <div
-              className="design-option"
-              onClick={() => navigate('/browse-design')}
-              role="button"
-              aria-label="Browse Design"
-            >
-              Browse Design →
-            </div>
-            <div
-              className="design-option"
-              onClick={() => navigate('/CustomDesignPage')}
-              role="button"
-              aria-label="Custom Design"
-            >
-              Custom Design →
-            </div>
-            <div
-              className="design-option"
-              onClick={() => navigate('/UploadDesignAndCheckout')}
-              role="button"
-              aria-label="Upload Design and Checkout"
-            >
-              Upload Design and Checkout →
-            </div>
-          </div>
+        {/* Set Selector */}
+        <div className="set">
+          <label>Set:</label>
+          <select value={setOption} onChange={(e) => setSetOption(e.target.value)}>
+            <option value="Single">Single</option>
+            <option value="Pair">Pair</option>
+          </select>
         </div>
+
+        {/* Quantity Selector */}
+        <div className="quantity">
+          <label>Quantity:</label>
+          <input
+            type="number"
+            value={quantity}
+            onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value)))}
+            min="1"
+          />
+        </div>
+
+        {/* Total Price */}
+        <div className="total-price">
+          <strong>Total Price (Incl. of all Taxes):</strong>
+          <span>₹ {calculateTotalPrice()}</span>
+        </div>
+
+        {/* Add to Cart Button */}
+        <button className="add-to-cart-btn">Add To Cart</button>
+
+        {/* Offers Section */}
+        <div className="offers">
+          <p>Save extra with below offers:</p>
+          <ul>
+            <li className="offer-item">5% off on card payment</li>
+            <li className="offer-item">10% off on UPI payment</li>
+          </ul>
+          
+        </div>
+        <ReviewSummary productId={productId}/>
       </div>
-      
     </div>
   );
 };
 
-export default ProductDetails;
+export default ProductDetail;
