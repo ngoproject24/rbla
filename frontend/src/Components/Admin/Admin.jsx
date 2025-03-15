@@ -1,20 +1,23 @@
 import React from 'react'
 import './Admin.css'
-import Sidebar from '../Components/Sidebar/Sidebar'
+import Sidebar from '../Sidebar/Sidebar'
+import SalesReport from '../SalesReport/SalesReport'
 import {Routes,Route} from 'react-router-dom'
-import ListProduct from '../Components/ListProduct/ListProduct'
-import AddProduct from '../Components/AddProduct/AddProduct'
-import Marquee from './Marquee'
+import AddProduct from '../AddProduct/AddProduct'
+import ListProduct from '../ListProduct/ListProduct'
+
 
 
 const Admin = () => {
   return (
     <div className="admin">
         <Sidebar/>
+        <SalesReport />
         <Routes>
             <Route path='/addproduct' element={<AddProduct/>}/>
             <Route path='/listproduct' element={<ListProduct/>}/>
-            <Route path='/Marquee' element={<Marquee/>}/>
+            
+            
         </Routes>
     </div>
   )

@@ -1,0 +1,333 @@
+/* AdminOrder.css */
+
+:root {
+    --primary-color: #4361ee;
+    --success-color: #06d6a0;
+    --danger-color: #ef476f;
+    --text-dark: #2b2d42;
+    --text-light: #8d99ae;
+    --background-light: #f8f9fa;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--background-light);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+  }
+  
+  .admin-container {
+    flex: 1;
+    padding: 2rem 3rem;
+    margin-left: 280px;
+    transition: margin 0.3s ease;
+  }
+  
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+  }
+  
+  .error-text {
+    color: var(--danger-color);
+    background: #fff5f5;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--danger-color);
+    margin: 1.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  
+  .table-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    position: relative;
+  }
+  
+  .order-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1000px;
+  }
+  
+  .order-table th,
+  .order-table td {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .order-table th {
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+  
+  .order-table tr {
+    transition: all 0.2s ease;
+  }
+  
+  .order-table tr:not(:last-child):hover {
+    background-color: #f8f9fa;
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .status-dropdown {
+    padding: 0.5rem 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    background-color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1.2em;
+  }
+  
+  .status-dropdown:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 0.8rem;
+  }
+  
+  .icon-btn {
+    background: none;
+    border: none;
+    padding: 0.6rem;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  
+  .icon-btn:hover {
+    background-color: rgba(67, 97, 238, 0.1);
+    transform: translateY(-1px);
+  }
+  
+  .icon-btn::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--text-dark);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  
+  .icon-btn:hover::after {
+    opacity: 1;
+  }
+  
+  .trash-icon {
+    color: var(--danger-color);
+  }
+  
+  .view-icon {
+    color: var(--success-color);
+  }
+  
+  /* Modern Modal Styles */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+  }
+  
+  .modal-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    animation: modalSlideIn 0.3s ease-out;
+  }
+  
+  @keyframes modalSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .modal-header h2 {
+    margin: 0;
+    color: var(--text-dark);
+    font-size: 1.5rem;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.2rem;
+    color: var(--text-light);
+    transition: all 0.2s ease;
+  }
+  
+  .close-btn:hover {
+    color: var(--text-dark);
+    transform: rotate(90deg);
+  }
+  
+  .modal-body {
+    display: grid;
+    gap: 1.2rem;
+  }
+  
+  .order-detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+  }
+  
+  .order-detail-item:not(:last-child) {
+    border-bottom: 1px solid #f1f3f5;
+  }
+  
+  .detail-label {
+    color: var(--text-light);
+    font-weight: 500;
+  }
+  
+  .detail-value {
+    color: var(--text-dark);
+    font-weight: 600;
+  }
+  
+  /* Order Status Indicator */
+  .status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  .status-indicator::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  
+  .status-Pending {
+    background: #fff3cd;
+    color: #856404;
+  }
+  .status-Pending::before {
+    background: #ffc107;
+  }
+  
+  .status-Processing {
+    background: #cfe2ff;
+    color: #052c65;
+  }
+  .status-Processing::before {
+    background: #0d6efd;
+  }
+  
+  .status-Shipped {
+    background: #d1e7dd;
+    color: #0a3622;
+  }
+  .status-Shipped::before {
+    background: #198754;
+  }
+  
+  .status-Delivered {
+    background: #d4edda;
+    color: #155724;
+  }
+  .status-Delivered::before {
+    background: #28a745;
+  }
+  
+  .status-Cancelled {
+    background: #f8d7da;
+    color: #721c24;
+  }
+  .status-Cancelled::before {
+    background: #dc3545;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1200px) {
+    .admin-container {
+      margin-left: 0;
+      padding: 1.5rem;
+    }
+    
+    .table-container {
+      overflow-x: auto;
+      padding: 1rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .admin-container {
+      padding: 1rem;
+    }
+  
+    .order-table th,
+    .order-table td {
+      padding: 0.8rem;
+      font-size: 0.9rem;
+    }
+  
+    .modal-container {
+      padding: 1.5rem;
+    }
+  }

@@ -5,77 +5,136 @@ body, html, .sidebar {
   box-sizing: border-box;
 }
 
-/* Sidebar container with pastel peach background */
+/* New color scheme */
+:root {
+  --primary: #2E8B57;      /* Sea Green */
+  --secondary: #FF6B6B;    /* Soft Coral */
+  --background: #F8F9FA;   /* Light Gray */
+  --hover-bg: #E9F5E9;     /* Mint Green */
+  --text: #2D3436;         /* Dark Gray */
+}
+
+/* Sidebar container */
 .sidebar-container {
   width: 250px;
-  background: #FFDAB9 !important; /* Soft Peach Pastel */
+  background: var(--background) !important;
   padding: 20px;
   min-height: 100vh;
+  border-right: 2px solid var(--primary);
 }
 
 .sidebar {
-  background-color: #FFE5C4 !important; /* Lighter Peach */
+  background-color: var(--background) !important;
 }
 
-
-/* Sidebar item styles */
+/* Sidebar item styles with underline animation */
 .sidebar-item {
   display: flex;
   align-items: center;
   gap: 15px;
-  padding: 10px 15px;
+  padding: 12px 18px;
   margin-bottom: 15px;
   border-radius: 8px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
+  position: relative;
+}
+
+/* Hover underline effect */
+.sidebar-item::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--secondary);
+  transition: width 0.3s ease;
+}
+
+.sidebar-item:hover::after {
+  width: 100%;
 }
 
 .sidebar-item:hover {
-  background-color: #FFC8A2; /* Slightly darker peach on hover */
+  background: var(--hover-bg);
 }
 
-/* Sidebar item text */
+/* Active state */
+.sidebar-item.active {
+  background: var(--hover-bg);
+}
+
+.sidebar-item.active::after {
+  width: 100%;
+  background: var(--primary);
+}
+
+/* Text styling */
 .sidebar-item p {
   font-size: 16px;
   font-weight: 500;
   margin: 0;
-  color: #ee3400; /* Darker text for better contrast */
+  color: var(--text);
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.sidebar-item:hover p {
+  color: var(--primary);
 }
 
 /* Icon styling */
 .sidebar-item img {
   height: 35px;
   width: 35px;
+  transition: transform 0.3s ease;
 }
 
-/* Remove link underline */
-a {
-  text-decoration: none;
+.sidebar-item:hover img {
+  transform: scale(1.1);
 }
 
-/* Responsive design for narrower screens */
+/* Responsive design */
 @media (max-width: 800px) {
-  .sidebar {
-    width: 100px;
-    height: auto;
-    padding: 10px;
-    flex-direction: row;
-    justify-content: space-around;
-    background-color: #FFE5C4; /* Consistent peach tone */
+  .sidebar-container {
+    width: 80px;
+    transition: width 0.3s ease;
+  }
+
+  .sidebar-container:hover {
+    width: 250px;
   }
 
   .sidebar-item {
     flex-direction: column;
-    gap: 5px;
-  }
-
-  .sidebar-item img {
-    height: 30px;
-    width: 30px;
+    gap: 8px;
+    padding: 10px;
   }
 
   .sidebar-item p {
     font-size: 12px;
-    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
+
+  .sidebar-container:hover .sidebar-item p {
+    opacity: 1;
+  }
+
+  /* Mobile underline adjustment */
+  .sidebar-item::after {
+    bottom: 0;
+  }
+}
+
+/* Animation for active item */
+@keyframes underline-pulse {
+  0% { width: 80%; }
+  50% { width: 100%; }
+  100% { width: 80%; }
+}
+
+.sidebar-item.active::after {
+  animation: underline-pulse 1.5s ease-in-out infinite;
 }

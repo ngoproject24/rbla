@@ -1,0 +1,244 @@
+/* ReviewList.css */
+
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f5f6fa;
+}
+
+.admin-container {
+    flex: 1;
+    padding: 2rem;
+    margin-left: 250px; /* Adjust based on sidebar width */
+}
+
+.admin-title {
+    color: #2c3e50;
+    margin-bottom: 2rem;
+}
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+.error-text {
+    color: #e74c3c;
+    margin: 1rem 0;
+    font-weight: bold;
+}
+
+.status-filter {
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.status-filter button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #3498db;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.status-filter button:hover {
+    background-color: #2980b9;
+}
+
+.status-filter button.active {
+    background-color: #2c3e50;
+}
+
+.table-container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+.review-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+.review-table th,
+.review-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.review-table th {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.review-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.icon-btn {
+    padding: 0.5rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn:hover {
+    transform: scale(1.1);
+}
+
+.edit-icon {
+    color: #3498db;
+}
+
+.trash-icon {
+    color: #e74c3c;
+}
+
+.view-icon {
+    color: #2ecc71;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.modal-title {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #7f8c8d;
+}
+
+.modal-form-group {
+    margin-bottom: 1rem;
+}
+
+.modal-form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+
+.modal-form-group textarea,
+.modal-form-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.modal-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.modal-actions button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-save-btn {
+    background-color: #3498db;
+    color: white;
+}
+
+.modal-save-btn:hover {
+    background-color: #2980b9;
+}
+
+.modal-cancel-btn {
+    background-color: #95a5a6;
+    color: white;
+}
+
+.modal-cancel-btn:hover {
+    background-color: #7f8c8d;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin-container {
+        margin-left: 0;
+        padding: 1rem;
+    }
+
+    .status-filter {
+        flex-wrap: wrap;
+    }
+
+    .review-table th,
+    .review-table td {
+        padding: 0.75rem;
+    }
+}
+
+.status-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.status-badge.active {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.status-badge.inactive {
+    background-color: #e74c3c;
+    color: white;
+}

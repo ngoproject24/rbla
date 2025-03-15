@@ -15,7 +15,6 @@ import Bamboo from './Pages/Bamboo';
 import Paperfiles from './Pages/Paperfiles';
 import CustProduct from './Pages/custproduct';
 import PaintApp from "./PaintApp";
-import Admin from './Pages/Admin';
 import ListProduct from './Components/ListProduct/ListProduct';
 import AddProduct from './Components/AddProduct/AddProduct';
 import CustomDesignPage from './Pages/CustomDesignPage';
@@ -42,6 +41,11 @@ import OrderProcess from './Components/ordersummary/OrderSummary';
 import PaymentComponent from './Pages/PaymentComponent';
 import BillingAddress from './Pages/BillingAddress';
 import ReviewSummary from './Components/ReviewSummary/ReviewSummary';
+import AdminOrder from './Components/AdminOrder/AdmineOrder';
+import ReviewList from './Components/ReviewList/ReviewList';
+import AdminUser from './Components/AdminUser/AdminUser';
+import Admin from './Components/Admin/Admin';
+import SalesReport from './Components/SalesReport/SalesReport';
 
 
 
@@ -99,9 +103,13 @@ const App = () => {
               <Route path="/PaymentComponent" element={<PaymentComponent/>}/>
               <Route path="/BillingAddress" element={<BillingAddress/>}/>
               <Route path="/ReviewSummary" element={<ReviewSummary/>}/>
-
+              <Route path="/adminorder" element={<AdminOrder/>}/>
+              <Route path="/adminreview" element={<ReviewList/>}/>
+              <Route path="/adminuser" element={<AdminUser/>}/>
+              <Route path="/admin" element={<Admin/>}/>
+              <Route path="/salesreport" element={<SalesReport/>}/>
               {/* Admin Panel Route */}
-              <Route path="/adminpanel" element={<AdminPanel addUnit={addUnit} />} />
+            <Route path="/AdminPanel" element={<AdminPanel/>}/>
             </Routes>
             
             

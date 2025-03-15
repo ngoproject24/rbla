@@ -1,0 +1,191 @@
+/* Sales Report Container */
+.sales-report-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Header */
+.sales-report-header {
+    display: block;
+    background: linear-gradient(90deg, #7A8DF7, #0047FF);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: fit-content;
+    margin: 0 auto 20px auto; /* Centering the header */
+}
+
+/* Filters Container */
+.filters-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+}
+
+/* Labels */
+.filters-container label {
+    font-weight: bold;
+    color: #444;
+}
+
+/* Input Fields */
+.filters-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 40px; /* Fixed height */
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Button Styling */
+.filters-container button {
+    padding: 10px 15px;
+    font-size: 14px;
+    background: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s ease;
+    height: 40px; /* Matching input height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* Hover Effect */
+.filters-container button:hover {
+    background: #218838;
+}
+
+/* Summary Container - Side by Side */
+.summary-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Summary Boxes with Light Professional Color Palette */
+.revenue-box,
+.orders-summary-box,
+.pending-orders-box,
+.out-of-stock-box {
+    flex: 1;
+    padding: 25px;
+    background: linear-gradient(135deg, #f0f5ff, #e6ebff);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: 0.3s ease-in-out;
+}
+
+/* Hover effect for a subtle interaction */
+.revenue-box:hover,
+.orders-summary-box:hover,
+.pending-orders-box:hover,
+.out-of-stock-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* Summary Titles */
+.revenue-box h2,
+.orders-summary-box h2,
+.pending-orders-box h2,
+.out-of-stock-box h2 {
+    font-size: 20px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Summary Values */
+.summary-value {
+    font-size: 28px;
+    font-weight: bold;
+    color: #1a237e;
+}
+
+/* Comparison Text */
+.summary-comparison {
+    font-size: 14px;
+    color: #4a4a4a;
+    font-style: italic;
+}
+
+/* Orders Box */
+.orders-box {
+    margin-top: 20px;
+}
+
+/* Table */
+.orders-box table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.orders-box th,
+.orders-box td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.orders-box th {
+    background-color: #007bff;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.orders-box tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.orders-box tbody tr:hover {
+    background-color: #ddd;
+}
+
+/* Pending Orders Box Styling */
+.pending-orders-box {
+    background: linear-gradient(135deg, #f0f8e4, #e2f4d9); /* Soft greenish tone for pending orders */
+}
+
+/* Out of Stock Box Styling */
+.out-of-stock-box {
+    background: linear-gradient(135deg, #f9dcdc, #fce5e5); /* Soft pinkish/red tone for out-of-stock */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .summary-container {
+        flex-direction: column;
+    }
+
+    .filters-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

@@ -79,6 +79,10 @@ const AddProduct = () => {
                 className="form-select"
               >
                 <option value="blockprinting">Block Printing</option>
+                <option value="bedsheets">BedSheets</option>
+                <option value="Bags">Bags</option>
+                <option value="towels">Towels</option>
+                <option value="napkins">Napkins</option>
                 <option value="cupcoaster">Cup Coaster</option>
                 <option value="paperfiles">Paper Files</option>
                 <option value="bamboo">Bamboo Products</option>
